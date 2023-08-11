@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preguntas Filtro</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="question" id="question1">
+      <h2>Pregunta 1: ¿Te gustaría saber sobre animales?</h2>
+      <button onclick="showQuestion('question2')">Sí</button>
+      <button onclick="showQuestion('question3')">No</button>
+    </div>
+
+    <div class="question" id="question2" style="display: none">
+      <h2>Pregunta 2: ¿Qué tipo de animales prefieres?</h2>
+      <button onclick="showQuestion('question4')">Domésticos</button>
+      <button onclick="showQuestion('question5')">Salvajes</button>
+    </div>
+
+    <div class="question" id="question3" style="display: none">
+      <h2>No deseas saber sobre animales. Fin del cuestionario.</h2>
+    </div>
+
+    <div class="question" id="question4" style="display: none">
+      <h2>Has seleccionado animales domésticos. ¿Qué animal te interesa?</h2>
+      <button onclick="showQuestion('question6')">Perro</button>
+      <button onclick="showQuestion('question7')">Gato</button>
+    </div>
+
+    <div class="question" id="question5" style="display: none">
+      <h2>
+        Has seleccionado animales salvajes. ¿Qué tipo de animales salvajes te
+        interesa?
+      </h2>
+      <button onclick="showQuestion('question8')">Mamíferos</button>
+      <button onclick="showQuestion('question9')">Aves</button>
+    </div>
+
+    <div class="question" id="question6" style="display: none">
+      <h2>Has seleccionado perros. ¿Qué raza te interesa?</h2>
+      <input type="text" id="dogBreedInput" />
+      <button onclick="showResult('perro')">Ver resultado</button>
+    </div>
+
+    <div class="question" id="question7" style="display: none">
+      <h2>Has seleccionado gatos. ¿Qué tipo de gato te interesa?</h2>
+      <input type="text" id="catTypeInput" />
+      <button onclick="showResult('gato')">Ver resultado</button>
+    </div>
+
+    <div class="question" id="question8" style="display: none">
+      <h2>Has seleccionado mamíferos salvajes. ¿Cuál mamífero te interesa?</h2>
+      <input type="text" id="wildMammalInput" />
+      <button onclick="showResult('mamífero salvaje')">Ver resultado</button>
+    </div>
+
+    <div class="question" id="question9" style="display: none">
+      <h2>Has seleccionado aves salvajes. ¿Qué tipo de aves te interesa?</h2>
+      <input type="text" id="wildBirdInput" />
+      <button onclick="showResult('ave salvaje')">Ver resultado</button>
+    </div>
+
+    <div id="result" style="display: none">
+      <h2>Resultado:</h2>
+      <p id="resultText"></p>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
