@@ -7,12 +7,12 @@ const INMUTABLE_CACHE = "inmutable-v1";
 
 const APP_SHELL = [
   // '/',
-  // "index.html",
-  // "css/style.css",
-  // "images/favicon.ico",
-  // "images/icons/icon-72x72.png",
-  // "js/app.js",
-  // "js/sw-utils.js",
+  "index.html",
+  "css/style.css",
+  "images/favicon.ico",
+  "images/icons/icon-72x72.png",
+  "js/app.js",
+  "js/sw-utils.js",
 ];
 
 const APP_SHELL_INMUTABLE = [
