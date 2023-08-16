@@ -3,70 +3,392 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Preguntas Filtro</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>questions Filtro</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div class="question" id="question1">
-      <h2>Pregunta 1: ¿Te gustaría saber sobre animales?</h2>
-      <button onclick="showQuestion('question2')">Sí</button>
-      <button onclick="showQuestion('question3')">No</button>
+    <!--
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+    <div class="py-24 sm:py-32 lg:px-8">
+      <div
+        class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+        aria-hidden="true"
+      >
+        <div
+          class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+          style="
+            clip-path: polygon(
+              74.1% 44.1%,
+              100% 61.6%,
+              97.5% 26.9%,
+              85.5% 0.1%,
+              80.7% 2%,
+              72.5% 32.5%,
+              60.2% 62.4%,
+              52.4% 68.1%,
+              47.5% 58.3%,
+              45.2% 34.5%,
+              27.5% 76.7%,
+              0.1% 64.9%,
+              17.9% 100%,
+              27.6% 76.8%,
+              76.1% 97.7%,
+              74.1% 44.1%
+            );
+          "
+        ></div>
+      </div>
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          SACsYTe
+        </h2>
+        <p class="mt-2 text-lg leading-8 text-gray-600" id="welcome">
+          Hola, bienvenido a SACsYTe
+        </p>
+      </div>
+      <div class="mx-auto mt-10 max-w-xl sm:mt-00 question" id="confirmCode">
+        <!-- aqui va el formulario -->
+
+        <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+          <div class="sm:col-span-2">
+            <p class="text-lg leading-8 text-gray-600">
+              nosotros te ayudaremos a liquidar tu deuda
+            </p>
+            <label
+              for="code"
+              class="block text-sm font-semibold leading-6 text-gray-900"
+              >Ingresa tu código de activación.</label
+            >
+            <div class="mt-2.5">
+              <input
+                type="text"
+                name="code"
+                id="code"
+                autocomplete="organization"
+                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="referencias"
+              class="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 border border-transparent ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200"
+              checked
+            />
+            <label
+              class="text-sm text-gray-500 ml-3 dark:text-gray-400"
+              for="referencias"
+            >
+              <a href="#" class="text-indigo-600 hover:underline ml-1"
+                >Referencias de credito</a
+              >
+            </label>
+          </div>
+
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="privacidad"
+              class="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 border border-transparent ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200"
+              checked
+            />
+            <label
+              class="text-sm text-gray-500 ml-3 dark:text-gray-400"
+              for="privacidad"
+            >
+              <a href="#" class="text-indigo-600 hover:underline ml-1"
+                >Aviso de privacidad</a
+              >
+            </label>
+          </div>
+        </div>
+        <div class="mt-2">
+          <button
+            id="confirmCode"
+            type="button"
+            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Verificar
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        id="question1"
+        style="display: none"
+      >
+        <div class="sm:col-span-2 mb-8">
+          <p class="text-lg leading-8 text-gray-600">
+            Hola <span class="clientName"></span> debes un total de
+            <span class="totalMont"></span> pesos.
+          </p>
+
+          <p class="block text-sm font-semibold leading-6 text-gray-900">
+            te queremos ayudar como quieres pagarlo y nosotros te ayudaremos
+          </p>
+        </div>
+        <div class="mt-2">
+          <button
+            id="button-1"
+            type="button"
+            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Si me interés liquidar la deuda
+          </button>
+        </div>
+        <div class="mt-2">
+          <button
+            id="button-2"
+            type="button"
+            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            No soy yo, lo conozco y quiero ayudarlo
+          </button>
+        </div>
+        <div class="mt-2">
+          <button
+            id="button-3"
+            type="button"
+            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Tengo una aclaración
+          </button>
+        </div>
+        <div class="mt-2">
+          <button
+            id="button-4"
+            type="button"
+            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            No lo conozco
+          </button>
+        </div>
+      </div>
+      <div
+        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        id="question1-1"
+        style="display: none"
+      >
+        <div class="sm:col-span-2 mb-8">
+          <p class="text-lg leading-8 text-gray-600">
+            Exelente!! <span class="clientName"></span> .
+          </p>
+
+          <p class="block text-sm font-semibold leading-6 text-gray-900">
+            ¿Como te gustaria liquidar tu deuda?
+          </p>
+        </div>
+        <div class="mt-2">
+          <button
+            id="payInOneExhibition"
+            type="button"
+            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Pagar en una sola exhibición
+          </button>
+        </div>
+        <div class="mt-2">
+          <button
+            id="payInInstallments"
+            type="button"
+            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Pagar en plazos fijos
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        id="selectPaymentMethod"
+        style="display: none"
+      >
+        <div class="sm:col-span-2 mb-8">
+          <p class="text-lg leading-8 text-gray-600">
+            Exelente!! <span class="clientName"></span> .
+          </p>
+
+          <p class="block text-sm font-semibold leading-6 text-gray-900">
+            Elige Método de Pago
+          </p>
+        </div>
+        <div class="mt-2">
+          <button
+            id="creditCard"
+            type="button"
+            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Tarjeta de credito
+          </button>
+        </div>
+        <div class="mt-2">
+          <button
+            id="storeCash"
+            type="button"
+            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Efectivo en el establecimientos
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="w-full mx-auto mt-20 rounded-lg bg-white shadow-lg p-5 text-gray-700"
+        style="max-width: 600px; display: none"
+        id="creditCardForm"
+      >
+        <div class="mb-10">
+          <h1 class="text-center font-bold text-xl uppercase">
+            Secure payment info
+          </h1>
+        </div>
+        <div class="mb-3 flex -mx-2">
+          <div class="px-2">
+            <label for="type1" class="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                class="form-radio h-5 w-5 text-indigo-500"
+                name="type"
+                id="type1"
+                checked
+              />
+              <img
+                src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
+                class="h-8 ml-3"
+              />
+            </label>
+          </div>
+          <div class="px-2">
+            <label for="type2" class="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                class="form-radio h-5 w-5 text-indigo-500"
+                name="type"
+                id="type2"
+              />
+              <img
+                src="https://www.sketchappsources.com/resources/source-image/PayPalCard.png"
+                class="h-8 ml-3"
+              />
+            </label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="font-bold text-sm mb-2 ml-1" for="nameOnCard"
+            >Name on card</label
+          >
+          <div>
+            <input
+              class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
+              placeholder="John Smith"
+              type="text"
+              id="nameOnCard"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="font-bold text-sm mb-2 ml-1" for="cardNumber"
+            >Card number</label
+          >
+          <div>
+            <input
+              class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
+              placeholder="0000 0000 0000 0000"
+              type="text"
+              id="cardNumber"
+            />
+          </div>
+        </div>
+        <div class="mb-3 -mx-2 flex items-end">
+          <div class="px-2 w-1/2">
+            <label class="font-bold text-sm mb-2 ml-1" for="expirationDate"
+              >Expiration date</label
+            >
+            <div>
+              <select
+                class="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
+                id="expirationDate"
+              >
+                <option value="01">01 - January</option>
+                <option value="02">02 - February</option>
+                <option value="03">03 - March</option>
+                <option value="04">04 - April</option>
+                <option value="05">05 - May</option>
+                <option value="06">06 - June</option>
+                <option value="07">07 - July</option>
+                <option value="08">08 - August</option>
+                <option value="09">09 - September</option>
+                <option value="10">10 - October</option>
+                <option value="11">11 - November</option>
+                <option value="12">12 - December</option>
+              </select>
+            </div>
+          </div>
+          <div class="px-2 w-1/2">
+            <select
+              class="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
+              id="expirationYear"
+            >
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+              <option value="2029">2029</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-10">
+          <label class="font-bold text-sm mb-2 ml-1" for="securityCode"
+            >Security code</label
+          >
+          <div>
+            <input
+              class="w-32 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
+              placeholder="000"
+              type="text"
+              id="securityCode"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
+          >
+            <i class="mdi mdi-lock-outline mr-1"></i> PAY NOW
+          </button>
+        </div>
+      </div>
     </div>
 
-    <div class="question" id="question2" style="display: none">
-      <h2>Pregunta 2: ¿Qué tipo de animales prefieres?</h2>
-      <button onclick="showQuestion('question4')">Domésticos</button>
-      <button onclick="showQuestion('question5')">Salvajes</button>
+    <div id="overlay">
+      <div class="cv-spinner">
+        <span class="spinner"></span>
+      </div>
     </div>
 
-    <div class="question" id="question3" style="display: none">
-      <h2>No deseas saber sobre animales. Fin del cuestionario.</h2>
-    </div>
-
-    <div class="question" id="question4" style="display: none">
-      <h2>Has seleccionado animales domésticos. ¿Qué animal te interesa?</h2>
-      <button onclick="showQuestion('question6')">Perro</button>
-      <button onclick="showQuestion('question7')">Gato</button>
-    </div>
-
-    <div class="question" id="question5" style="display: none">
-      <h2>
-        Has seleccionado animales salvajes. ¿Qué tipo de animales salvajes te
-        interesa?
-      </h2>
-      <button onclick="showQuestion('question8')">Mamíferos</button>
-      <button onclick="showQuestion('question9')">Aves</button>
-    </div>
-
-    <div class="question" id="question6" style="display: none">
-      <h2>Has seleccionado perros. ¿Qué raza te interesa?</h2>
-      <input type="text" id="dogBreedInput" />
-      <button onclick="showResult('perro')">Ver resultado</button>
-    </div>
-
-    <div class="question" id="question7" style="display: none">
-      <h2>Has seleccionado gatos. ¿Qué tipo de gato te interesa?</h2>
-      <input type="text" id="catTypeInput" />
-      <button onclick="showResult('gato')">Ver resultado</button>
-    </div>
-
-    <div class="question" id="question8" style="display: none">
-      <h2>Has seleccionado mamíferos salvajes. ¿Cuál mamífero te interesa?</h2>
-      <input type="text" id="wildMammalInput" />
-      <button onclick="showResult('mamífero salvaje')">Ver resultado</button>
-    </div>
-
-    <div class="question" id="question9" style="display: none">
-      <h2>Has seleccionado aves salvajes. ¿Qué tipo de aves te interesa?</h2>
-      <input type="text" id="wildBirdInput" />
-      <button onclick="showResult('ave salvaje')">Ver resultado</button>
-    </div>
-
-    <div id="result" style="display: none">
-      <h2>Resultado:</h2>
-      <p id="resultText"></p>
-    </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preguntas Filtro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+      <div
+        class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+        aria-hidden="true"
+      >
+        <div
+          class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+          style="
+            clip-path: polygon(
+              74.1% 44.1%,
+              100% 61.6%,
+              97.5% 26.9%,
+              85.5% 0.1%,
+              80.7% 2%,
+              72.5% 32.5%,
+              60.2% 62.4%,
+              52.4% 68.1%,
+              47.5% 58.3%,
+              45.2% 34.5%,
+              27.5% 76.7%,
+              0.1% 64.9%,
+              17.9% 100%,
+              27.6% 76.8%,
+              76.1% 97.7%,
+              74.1% 44.1%
+            );
+          "
+        ></div>
+      </div>
+    </div>
+
+    <div class="question" id="confirmCode">
+      <h1 class="text-3xl font-bold underline">Hello world!</h1>
+      <h4>
+        hola!!! nosotros te ayudaremos a liquidar tu deuda, ingresa tu código de
+        activación.
+      </h4>
+      <p>¿Cuál es tu código de activación?</p>
+      <input type="text" name="code" id="code" />
+      <div>
+        <label
+          ><a href="http://">Referencias de credito</a>
+          <input
+            type="checkbox"
+            name="referencias"
+            id="referencias"
+            checked="checked"
+          />
+          <span></span>
+        </label>
+        <label
+          ><a href="http://">Aviso de privacidad</a>
+          <input
+            type="checkbox"
+            name="privacidad"
+            id="privacidad"
+            checked="checked"
+          />
+          <span></span>
+        </label>
+      </div>
+      <div class="buttons">
+        <button type="button" id="confirmCode">Siguiente</button>
+      </div>
+    </div>
+
+    <div class="question" id="question1" style="display: none">
+      <h4>
+        Hola <span class="clientName"></span> debes un total de
+        <span class="totalMont"></span> pesos te queremos ayudar como quieres
+        pagarlo y nosotros te ayudaremos
+      </h4>
+      <p>Tienes un adeudo de <span class="totalMont"></span></p>
+      <div class="buttons">
+        <button type="button" id="button-1">
+          a) si me interés liquidar la deuda
+        </button>
+        <button type="button" id="button-2">
+          b) No soy yo, lo conozco y quiero ayudarlo
+        </button>
+        <button type="button" id="button-3">c) Tengo una aclaración</button>
+        <button type="button" id="button-4">d) No lo conozco</button>
+      </div>
+    </div>
+
+    <!-- <div class="question" id="question3" style="display: none">
+      <h2>No deseas saber sobre animales. Fin del cuestionario.</h2>
+    </div>
+
+    <div class="question" id="question4" style="display: none">
+      <h2>Has seleccionado animales domésticos. ¿Qué animal te interesa?</h2>
+      <button onclick="showQuestion('question6')">Perro</button>
+      <button onclick="showQuestion('question7')">Gato</button>
+    </div> -->
+
+    <div class="question" id="question1-1" style="display: none">
+      <h2>Exelente!! <span class="clientName"></span></h2>
+      <p>¿Como gustas liquidar tu deuda?</p>
+      <div class="buttons">
+        <button type="button" id="button-1-1">
+          Requiero pagar en una sola exhibición
+        </button>
+        <button type="button" id="button-1-2">
+          Requiero pagar en plazos fijos
+        </button>
+      </div>
+    </div>
+
+    <div class="question" id="question1-1-1" style="display: none">
+      <div class="payment-container">
+        <h1>Elige Método de Pago</h1>
+        <form id="paymentForm">
+          <div class="payment-method">
+            <label>
+              <input type="radio" name="paymentMethod" value="efectivo" />
+              Pago en Efectivo
+            </label>
+            <label>
+              <input type="radio" name="paymentMethod" value="tarjeta" />
+              Tarjeta de Crédito
+            </label>
+          </div>
+          <div id="creditCardFields" style="display: none">
+            <label for="cardNumber">Número de Tarjeta:</label>
+            <input
+              type="text"
+              id="cardNumber"
+              placeholder="Número de Tarjeta"
+            />
+            <label for="expDate">Fecha de Expiración:</label>
+            <input type="text" id="expDate" placeholder="MM/YY" />
+            <label for="cvc">CVC:</label>
+            <input type="text" id="cvc" placeholder="CVC" />
+          </div>
+          <button type="submit">Realizar Pago</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="question" id="question1-1-2" style="display: none">
+      <h2>Tabla de Pagos y Cálculos</h2>
+
+      <div class="payment-method-plain">
+        <label>
+          <input type="radio" name="paymentMethodPlain" value="semanal" />
+          Pago Semanal
+        </label>
+        <label>
+          <input type="radio" name="paymentMethodPlain" value="quincenal" />
+          Pago Quincenal
+        </label>
+        <label>
+          <input type="radio" name="paymentMethodPlain" value="mensual" />
+          Pago Mensual
+        </label>
+      </div>
+
+      <table>
+        <tr>
+          <th>Pagos</th>
+          <th>$ Pago</th>
+          <th>Total</th>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>700</td>
+          <td>4200</td>
+        </tr>
+      </table>
+
+      <h3>Calculos</h3>
+
+      <table>
+        <tr>
+          <th></th>
+          <th>Deuda Total</th>
+          <th>Menos Total Pagos</th>
+          <th>Deuda Restante</th>
+          <th>Menos 10%</th>
+          <th>Deuda Actual</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>32000</td>
+          <td>4200</td>
+          <td>27800</td>
+          <td>2780</td>
+          <td>25020</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <th>Pagos</th>
+          <th>$ Pago</th>
+          <th>Total</th>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>700</td>
+          <td>4200</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>20820</td>
+        </tr>
+        <tr>
+          <td>20%</td>
+          <td></td>
+          <td>4164</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>16656</td>
+        </tr>
+        <tr>
+          <td>Primer Pago</td>
+          <td>4200</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Si hay promesa &lt; 20 días</td>
+          <td>12456</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Máximo 24</td>
+          <td>80% saldo contable exigible</td>
+          <td>30%</td>
+          <td>3736.8</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>8719.2</td>
+        </tr>
+        <tr>
+          <td>Máximo 18</td>
+          <td>60% saldo contable exigible</td>
+          <td>40%</td>
+          <td>4519.2</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>1807.68</td>
+        </tr>
+        <tr>
+          <td>Máximo 12</td>
+          <td>40% saldo contable exigible</td>
+          <td>40%</td>
+          <td>4200</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>-1488.48</td>
+        </tr>
+        <tr>
+          <td>10%</td>
+          <td></td>
+          <td>-148.848</td>
+        </tr>
+        <tr>
+          <td>Máximo 6</td>
+          <td>30% saldo contable exigible</td>
+          <td></td>
+          <td>-1339.632</td>
+        </tr>
+        <tr>
+          <td>1.5 veces el mínimo a cobrar</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Máximo 1</td>
+          <td>20% saldo contable exigible</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>1 vez el mínimo a cobrar</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+
+      <!-- <label>
+        <input type="radio" name="plazo" value="semanal" />
+        Pago Semanal
+      </label>
+      <label>
+        <input type="radio" name="plazo" value="quincenal" />
+        Pago Quincenal
+      </label>
+      <label>
+        <input type="radio" name="plazo" value="mensual" />
+        Pago Mensual
+      </label> -->
+      <div class="payment-container">
+        <h1>Elige Método de Pago</h1>
+        <form id="paymentFormTwo">
+          <div class="payment-method">
+            <label>
+              <input type="radio" name="paymentMethod" value="efectivo" />
+              Pago en Efectivo
+            </label>
+            <label>
+              <input type="radio" name="paymentMethod" value="tarjeta" />
+              Tarjeta de Crédito
+            </label>
+          </div>
+          <div id="creditCardFieldsTwo" style="display: none">
+            <label for="cardNumber">Número de Tarjeta:</label>
+            <input
+              type="text"
+              id="cardNumber"
+              placeholder="Número de Tarjeta"
+            />
+            <label for="expDate">Fecha de Expiración:</label>
+            <input type="text" id="expDate" placeholder="MM/YY" />
+            <label for="cvc">CVC:</label>
+            <input type="text" id="cvc" placeholder="CVC" />
+          </div>
+          <button type="submit">Realizar Pago</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="question" id="successPayment" style="display: none">
+      <h2>Gracias por tu pago</h2>
+      <p>Tu pago fue realizado con éxito, en breve nos pondremos en contacto</p>
+    </div>
+
+    <div id="overlay">
+      <div class="cv-spinner">
+        <span class="spinner"></span>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
