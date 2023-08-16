@@ -1,3 +1,21 @@
+$(document).ready(function () {
+  var beforeInstallPrompt = null;
+
+  $(window).on("beforeinstallprompt", eventHandler);
+
+  function eventHandler(event) {
+    beforeInstallPrompt = event.originalEvent;
+    $("#installBtn").removeAttr("disabled");
+    $("#installBtn").removeAttr("style");
+  }
+
+  $("#installBtn").on("click", function () {
+    if (beforeInstallPrompt) {
+      beforeInstallPrompt.prompt();
+    }
+  });
+});
+
 function registerServiceWorker() {
   if ("serviceWorker" in navigator) {
     var url = window.location.href;
