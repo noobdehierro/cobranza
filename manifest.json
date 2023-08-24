@@ -3,7 +3,7 @@
   "name": "SAC",
   "start_url": "index.html",
   "background_color": "#ff80b5",
-  "theme_color": "#9089fc",
+  "theme_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",
   "icons": [

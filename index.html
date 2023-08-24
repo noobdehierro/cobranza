@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SAC</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
+    <meta name="apple-mobile-web-app-title" content="Cook<4>Me" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link
+      rel="apple-touch-startup-image"
+      href="images/icons/icon-192x192.png"
+    />
+
     <link rel="manifest" href="manifest.json" />
 
     <!-- Android -->
-    <meta name="theme-color" content="#9089fc" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"
+      rel="stylesheet"
+    />
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -33,7 +49,7 @@
         aria-hidden="true"
       >
         <div
-          class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-50 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+          class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-100 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
           style="
             clip-path: polygon(
               74.1% 44.1%,
@@ -56,15 +72,44 @@
           "
         ></div>
       </div>
+      <div
+        class="absolute inset-x-0 bottom-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:bottom-[-20rem]"
+        aria-hidden="true"
+      >
+        <div
+          class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-100 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+          style="
+            clip-path: polygon(
+              74.1% 44.1%,
+              100% 61.6%,
+              97.5% 26.9%,
+              85.5% 0.1%,
+              80.7% 2%,
+              72.5% 32.5%,
+              60.2% 62.4%,
+              52.4% 68.1%,
+              47.5% 58.3%,
+              45.2% 34.5%,
+              27.5% 76.7%,
+              0.1% 64.9%,
+              17.9% 100%,
+              27.6% 76.8%,
+              76.1% 97.7%,
+              74.1% 44.1%
+            );
+          "
+        ></div>
+      </div>
+
       <div class="mx-auto max-w-2xl text-center">
         <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           SACsYTe
         </h2>
+      </div>
+      <div class="mx-auto mt-10 max-w-xl sm:mt-00 question" id="confirmCode">
         <p class="mt-2 text-lg leading-8 text-gray-600" id="welcome">
           Hola, bienvenido a SACsYTe
         </p>
-      </div>
-      <div class="mx-auto mt-10 max-w-xl sm:mt-00 question" id="confirmCode">
         <!-- aqui va el formulario -->
 
         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -154,7 +199,7 @@
             type="button"
             class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Si me interés liquidar la deuda
+            Si me interésa liquidar la deuda
           </button>
         </div>
         <div class="mt-2">
@@ -182,6 +227,14 @@
             class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             No lo conozco
+          </button>
+
+          <button
+            id="prevHome"
+            type="button"
+            class="block w-50 my-10 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Atrás
           </button>
         </div>
       </div>
@@ -221,6 +274,114 @@
 
       <div
         class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        id="question2-1"
+        style="display: none"
+      >
+        <div class="sm:col-span-2 mb-8">
+          <h1 class="text-3xl font-bold text-gray-600 mb-4">
+            Ayudanos a Encontrar a <span class="clientName"></span>
+          </h1>
+          <p class="text-lg leading-8 text-gray-600">
+            Un gesto de solidaridad.
+          </p>
+
+          <p class="block text-sm font-semibold leading-6 text-gray-900">
+            Tu participación importa: Llena este pequeño cuestionario y marca la
+            diferencia en la vida de alguien cercano
+          </p>
+        </div>
+
+        <form id="helpForm">
+          <div class="grid gap-6">
+            <div class="mb-1">
+              <label
+                for="celular"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Celular</label
+              >
+              <input
+                type="tel"
+                id="celular"
+                name="celular"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="123-45-678"
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+              />
+            </div>
+
+            <div class="mb-1">
+              <label
+                for="telefono"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Telefono de casa</label
+              >
+              <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="123-45-678"
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+              />
+            </div>
+
+            <div class="mb-1">
+              <label
+                for="email"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Correo electrónico
+              </label>
+              <input
+                type="email"
+                id="email"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="john.doe@company.com"
+              />
+            </div>
+
+            <div class="mb-1">
+              <label
+                for="telefonoContacto"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Telefono de alguien cercano</label
+              >
+              <input
+                type="tel"
+                id="telefonoContacto"
+                name="telefonoContacto"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="123-45-678"
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+              />
+            </div>
+
+            <div class="mt-2 flex justify-center">
+              <button
+                id="help"
+                type="submit"
+                class="flex rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                <span>Si quiero ayudar a <span class="clientName"></span></span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M13.293 10.293a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L10.586 11H4a1 1 0 010-2h6.586l-1.293-1.293a1 1 0 011.414-1.414l3 3z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div
+        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
         id="selectPaymentMethod"
         style="display: none"
       >
@@ -254,7 +415,7 @@
       </div>
 
       <div
-        class="w-full mx-auto mt-20 rounded-lg bg-white shadow-lg p-5 text-gray-700"
+        class="w-full mx-auto mt-20 rounded-lg bg-white shadow-lg p-5 text-gray-700 question"
         style="max-width: 600px; display: none"
         id="creditCardForm"
       >
@@ -370,7 +531,24 @@
           </button>
         </div>
       </div>
-
+      <div
+        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        id="thankYou"
+        style="display: none"
+      >
+        <div
+          class="bg-gradient-to-r from-[#ff80b5] to-[#9089fc] text-white p-16 rounded-lg shadow-lg"
+        >
+          <p class="text-4xl font-semibold mb-6">¡Gracias por ser increíble!</p>
+          <p class="text-lg mb-4">
+            Tu apoyo y confianza son un pilar fundamental para nosotros.
+          </p>
+          <p class="text-lg">
+            Cada paso que damos juntos nos acerca aún más a nuestros objetivos
+            compartidos.
+          </p>
+        </div>
+      </div>
       <button
         class="mt-10 block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
         id="installBtn"
@@ -388,6 +566,8 @@
 
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <script src="js//libs/jquery.com_jquery-3.7.0.min.js"></script>
+    <script src="js/libs/jquery.mask.min.js"></script>
+    <script src="js/libs/jquery.validate.min.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>
