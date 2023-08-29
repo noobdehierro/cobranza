@@ -44,6 +44,12 @@ $(document).ready(function () {
   $("#telefono").mask("0000000000");
   $("#celular").mask("0000000000");
   $("#telefonoContacto").mask("0000000000");
+  $("#clarificationCelular").mask("0000000000");
+  $("#clarificationTelefono").mask("0000000000");
+
+
+
+
 
   $("#confirmCode").click(function () {
     var code = $("#code").val();
@@ -56,26 +62,26 @@ $(document).ready(function () {
       $.ajax({
         showLoader: true,
         type: "GET",
-        // url: "https://jsonplaceholder.typicode.com/todos/1",
-        url: "http://serverpwa.test/api/pwa",
+        url: "https://jsonplaceholder.typicode.com/todos/1",
+        // url: "http://serverpwa.test/api/pwa",
         data: {
           code: code,
         },
         success: function ({ data }) {
-          console.log(data);
+          // console.log(data);
 
-          // let clientName = {
-          //   name: "Jorge Leon",
-          //   adeudo: 50000,
-          // };
+          let clientName = {
+            name: "Jorge Leon",
+            adeudo: 50000,
+          };
 
           $("#welcome").hide();
 
-          // $(".clientName").text(clientName.name);
-          // $(".totalMont").text(clientName.adeudo);
+          $(".clientName").text(clientName.name);
+          $(".totalMont").text(clientName.adeudo);
 
-          $(".clientName").text(data.name);
-          $(".totalMont").text(data.adeudo);
+          // $(".clientName").text(data.name);
+          // $(".totalMont").text(data.adeudo);
           showquestion("question1");
         },
         error: function (error) {
@@ -101,6 +107,10 @@ $(document).ready(function () {
     showquestion("question1-1-1");
   });
 
+  $("#wayToLiquidate").click(function () {
+    showquestion("question1-1");
+  });
+
   $("#button-1-2").click(function () {
     showquestion("question1-1-2");
   });
@@ -108,6 +118,52 @@ $(document).ready(function () {
   $("#button-2").click(function () {
     showquestion("question2-1");
   });
+
+  $("#prevQuestionOne, #prevQuestion").click(function () {
+    showquestion("question1");
+  });
+
+  $("#button-3").click(function () {
+    showquestion("question3-1");
+  });
+  $("#clarificationSubmit").click(function (e) {
+    e.preventDefault();
+
+    var celular = $("#clarificationCelular").val(),
+      email = $("#clarificationEmail").val(),
+      telefono = $("#clarificationTelefono").val(),
+      file = $("#clarificationFile").val();
+    if ($("#clarificationForm").valid()) {
+
+      console.log('objecto', celular, email, telefono, file);
+
+
+      $.ajax({
+        showLoader: true,
+        type: "GET",
+        url: "https://jsonplaceholder.typicode.com/todos/1",
+        // url: "http://serverpwa.test/api/pwa",
+        data: {
+          celular: celular,
+          email: email,
+          telefono: telefono,
+          file: file
+        },
+        success: function (response) {
+          console.log(response);
+          showquestion("thankYou");
+        }
+      });
+
+
+
+    }
+
+
+  })
+
+
+
 
   $("#help").click(function (e) {
     e.preventDefault();
@@ -141,6 +197,78 @@ $(document).ready(function () {
     }
   });
 
+  $("#button-4").click(function (e) {
+    e.preventDefault();
+    showquestion("question4-1");
+  });
+
+
+  $("#button-4-1, #button-4-2, #button-4-3, #button-4-4").click(function (e) {
+    e.preventDefault();
+    $(".question").hide();
+
+    // console.log(e.target.textContent);
+
+    let text = e.target.textContent.trim();
+
+    $.ajax({
+      type: "get",
+      // url: "http://serverpwa.test/api/pwa",
+      url: "https://jsonplaceholder.typicode.com/todos/1",
+      data: {
+        respuesta: text,
+      },
+      success: function (response) {
+        showquestion("thankYou");
+      },
+    });
+
+  });
+
+  $("#explication").click(function (e) {
+
+    showquestion("explicationForm");
+
+  })
+
+  $("#prevNoloConozco").click(function (e) {
+    e.preventDefault();
+    showquestion("question4-1");
+
+  })
+
+  $("#explicationSubmit").click(function (e) {
+    e.preventDefault();
+
+    var message = $("#message").val();
+
+    if (message.length < 10) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "La explicación debe tener al menos 10 caracteres.",
+      });
+      return false;
+    }
+
+
+    $.ajax({
+      type: "get",
+      // url: "http://serverpwa.test/api/pwa",
+      url: "https://jsonplaceholder.typicode.com/todos/1",
+      data: {
+        message: message,
+      },
+      success: function (response) {
+        showquestion("thankYou");
+      },
+    });
+
+
+  });
+
+
+
   function showquestion(questionId) {
     $(".question").hide();
     $("#" + questionId).show();
@@ -161,6 +289,27 @@ $(document).ready(function () {
   $("#creditCard").click(function () {
     showquestion("creditCardForm");
   });
+
+  $("#paymentMethods").click(function () {
+    showquestion("selectPaymentMethod");
+  });
+
+
+  $("#explicationForm").validate({
+    rules: {
+      explication: {
+        minlength: 10,
+        maxlength: 500,
+      },
+    },
+    messages: {
+      explication: {
+        minlength: "La explicación debe tener al menos 10 caracteres.",
+        maxlength: "La explicación no debe exceder los 500 caracteres.",
+      },
+    }
+  });
+
 
   $("#helpForm").validate({
     rules: {
@@ -195,4 +344,51 @@ $(document).ready(function () {
       },
     },
   });
+
+  $("#clarificationForm").validate({
+    rules: {
+      clarificationCelular: {
+        minlength: 10,
+        digits: true,
+        required: true,
+      },
+      clarificationEmail: {
+        required: true,
+        email: true,
+      },
+      clarificationTelefono: {
+        minlength: 10,
+        digits: true,
+        required: true,
+      },
+      clarificationFile: {
+        required: true,
+      }
+
+    },
+    messages: {
+      clarificationCelular: {
+        minlength: "El número de celular debe tener al menos 10 caracteres.",
+        maxlength: "El número de celular no debe exceder los 10 caracteres.",
+        digits: "Ingresa solo dígitos en este campo.",
+        required: "Este campo es obligatorio.",
+      },
+      clarificationEmail: {
+        required: "Este campo es obligatorio.",
+        email: "Ingresa un correo valido.",
+      },
+      clarificationTelefono: {
+        minlength: "El número de teléfono debe tener al menos 10 caracteres.",
+        maxlength: "El número de teléfono no debe exceder los 10 caracteres.",
+        digits: "Ingresa solo dígitos en este campo.",
+        required: "Este campo es obligatorio.",
+      },
+      clarificationFile: {
+        required: "Este campo es obligatorio.",
+      }
+    }
+
+  });
+
+
 });

@@ -97,3 +97,6 @@ th {
 /* .question {
     display: block;
 } */
+.error {
+    color: red;
+}
