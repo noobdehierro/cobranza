@@ -47,10 +47,6 @@ $(document).ready(function () {
   $("#clarificationCelular").mask("0000000000");
   $("#clarificationTelefono").mask("0000000000");
 
-
-
-
-
   $("#confirmCode").click(function () {
     var code = $("#code").val();
 
@@ -111,6 +107,10 @@ $(document).ready(function () {
     showquestion("question1-1");
   });
 
+  $("#prevSettlementType").click(function () {
+    showquestion("question1-1");
+  });
+
   $("#button-1-2").click(function () {
     showquestion("question1-1-2");
   });
@@ -134,9 +134,7 @@ $(document).ready(function () {
       telefono = $("#clarificationTelefono").val(),
       file = $("#clarificationFile").val();
     if ($("#clarificationForm").valid()) {
-
-      console.log('objecto', celular, email, telefono, file);
-
+      console.log("objecto", celular, email, telefono, file);
 
       $.ajax({
         showLoader: true,
@@ -147,23 +145,15 @@ $(document).ready(function () {
           celular: celular,
           email: email,
           telefono: telefono,
-          file: file
+          file: file,
         },
         success: function (response) {
           console.log(response);
           showquestion("thankYou");
-        }
+        },
       });
-
-
-
     }
-
-
-  })
-
-
-
+  });
 
   $("#help").click(function (e) {
     e.preventDefault();
@@ -202,7 +192,6 @@ $(document).ready(function () {
     showquestion("question4-1");
   });
 
-
   $("#button-4-1, #button-4-2, #button-4-3, #button-4-4").click(function (e) {
     e.preventDefault();
     $(".question").hide();
@@ -222,20 +211,16 @@ $(document).ready(function () {
         showquestion("thankYou");
       },
     });
-
   });
 
   $("#explication").click(function (e) {
-
     showquestion("explicationForm");
-
-  })
+  });
 
   $("#prevNoloConozco").click(function (e) {
     e.preventDefault();
     showquestion("question4-1");
-
-  })
+  });
 
   $("#explicationSubmit").click(function (e) {
     e.preventDefault();
@@ -251,7 +236,6 @@ $(document).ready(function () {
       return false;
     }
 
-
     $.ajax({
       type: "get",
       // url: "http://serverpwa.test/api/pwa",
@@ -263,11 +247,7 @@ $(document).ready(function () {
         showquestion("thankYou");
       },
     });
-
-
   });
-
-
 
   function showquestion(questionId) {
     $(".question").hide();
@@ -283,7 +263,7 @@ $(document).ready(function () {
   });
 
   $("#payInOneExhibition").click(function () {
-    showquestion("selectPaymentMethod");
+    showquestion("oneTimeExhibition");
   });
 
   $("#creditCard").click(function () {
@@ -293,7 +273,6 @@ $(document).ready(function () {
   $("#paymentMethods").click(function () {
     showquestion("selectPaymentMethod");
   });
-
 
   $("#explicationForm").validate({
     rules: {
@@ -307,9 +286,8 @@ $(document).ready(function () {
         minlength: "La explicación debe tener al menos 10 caracteres.",
         maxlength: "La explicación no debe exceder los 500 caracteres.",
       },
-    }
+    },
   });
-
 
   $("#helpForm").validate({
     rules: {
@@ -363,8 +341,7 @@ $(document).ready(function () {
       },
       clarificationFile: {
         required: true,
-      }
-
+      },
     },
     messages: {
       clarificationCelular: {
@@ -385,10 +362,44 @@ $(document).ready(function () {
       },
       clarificationFile: {
         required: "Este campo es obligatorio.",
-      }
-    }
-
+      },
+    },
   });
 
+  var horaAcceso = localStorage.getItem("horaAcceso");
 
+  if (!horaAcceso) {
+    horaAcceso = new Date().getTime();
+    localStorage.setItem("horaAcceso", horaAcceso);
+  }
+
+  var horaAccesoDate = new Date(parseInt(horaAcceso));
+
+  console.log(horaAccesoDate);
+
+  function actualizarContador() {
+    var ahora = new Date().getTime();
+    var tiempoTranscurrido = ahora - horaAcceso;
+    var tiempoRestante = 24 * 60 * 60 * 1000 - tiempoTranscurrido; // 24 horas en milisegundos
+
+    if (tiempoRestante <= 0) {
+      document.getElementById("tiempo-restante").textContent =
+        "Tiempo expirado";
+    } else {
+      var segundos = Math.floor(tiempoRestante / 1000) % 60;
+      var minutos = Math.floor(tiempoRestante / (1000 * 60)) % 60;
+      var horas = Math.floor(tiempoRestante / (1000 * 60 * 60));
+
+      document.getElementById("tiempo-restante").textContent =
+        horas + "h " + minutos + "m " + segundos + "s";
+    }
+  }
+
+  setInterval(actualizarContador, 1000);
+
+  var hora = horaAccesoDate.getHours();
+  var minutos = horaAccesoDate.getMinutes();
+  var segundos = horaAccesoDate.getSeconds();
+  document.getElementById("hora-acceso").textContent =
+    hora + ":" + minutos + ":" + segundos;
 });

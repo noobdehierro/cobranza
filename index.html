@@ -692,169 +692,53 @@
 
       <div
         class="mx-auto mt-10 max-w-xl sm:mt-00 question"
-        id="selectPaymentMethod"
+        id="oneTimeExhibition"
         style="display: none"
       >
         <div class="sm:col-span-2 mb-8">
-          <p class="text-lg leading-8 text-gray-600">
-            Exelente!! <span class="clientName"></span> .
-          </p>
-
-          <p class="block text-sm font-semibold leading-6 text-gray-900">
-            Elige Método de Pago
-          </p>
-        </div>
-        <div class="mt-2">
-          <button
-            id="creditCard"
-            type="button"
-            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Tarjeta de debito
-          </button>
-        </div>
-        <div class="mt-2">
-          <button
-            id="storeCash"
-            type="button"
-            class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Efectivo en el establecimientos
-          </button>
-        </div>
-        <button
-          id="wayToLiquidate"
-          type="button"
-          class="block w-70 my-5 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Atrás
-        </button>
-      </div>
-
-      <div
-        class="w-full mx-auto mt-20 rounded-lg bg-white shadow-lg p-5 text-gray-700 question"
-        style="max-width: 600px; display: none"
-        id="creditCardForm"
-      >
-        <div class="mb-10">
-          <h1 class="text-center font-bold text-xl uppercase">
-            Secure payment info
+          <h1 class="text-3xl font-bold text-gray-600 mb-4">
+            Exelente noticia
           </h1>
+          <p class="text-lg leading-8 text-gray-600"></p>
         </div>
-        <div class="mb-3 flex -mx-2">
-          <div class="px-2">
-            <label for="type1" class="flex items-center cursor-pointer">
-              <input
-                type="radio"
-                class="form-radio h-5 w-5 text-indigo-500"
-                name="type"
-                id="type1"
-                checked
-              />
-              <img
-                src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
-                class="h-8 ml-3"
-              />
-            </label>
-          </div>
-        </div>
-        <div class="mb-3">
-          <label class="font-bold text-sm mb-2 ml-1" for="nameOnCard"
-            >Name on card</label
-          >
-          <div>
-            <input
-              class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-              placeholder="John Smith"
-              type="text"
-              id="nameOnCard"
-            />
-          </div>
-        </div>
-        <div class="mb-3">
-          <label class="font-bold text-sm mb-2 ml-1" for="cardNumber"
-            >Card number</label
-          >
-          <div>
-            <input
-              class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-              placeholder="0000 0000 0000 0000"
-              type="text"
-              id="cardNumber"
-            />
-          </div>
-        </div>
-        <div class="mb-3 -mx-2 flex items-end">
-          <div class="px-2 w-1/2">
-            <label class="font-bold text-sm mb-2 ml-1" for="expirationDate"
-              >Expiration date</label
-            >
-            <div>
-              <select
-                class="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
-                id="expirationDate"
-              >
-                <option value="01">01 - January</option>
-                <option value="02">02 - February</option>
-                <option value="03">03 - March</option>
-                <option value="04">04 - April</option>
-                <option value="05">05 - May</option>
-                <option value="06">06 - June</option>
-                <option value="07">07 - July</option>
-                <option value="08">08 - August</option>
-                <option value="09">09 - September</option>
-                <option value="10">10 - October</option>
-                <option value="11">11 - November</option>
-                <option value="12">12 - December</option>
-              </select>
-            </div>
-          </div>
-          <div class="px-2 w-1/2">
-            <select
-              class="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
-              id="expirationYear"
-            >
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-              <option value="2023">2023</option>
-              <option value="2024">2024</option>
-              <option value="2025">2025</option>
-              <option value="2026">2026</option>
-              <option value="2027">2027</option>
-              <option value="2028">2028</option>
-              <option value="2029">2029</option>
-            </select>
-          </div>
-        </div>
-        <div class="mb-10">
-          <label class="font-bold text-sm mb-2 ml-1" for="securityCode"
-            >Security code</label
-          >
-          <div>
-            <input
-              class="w-32 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-              placeholder="000"
-              type="text"
-              id="securityCode"
-            />
-          </div>
-        </div>
-        <div>
-          <button
-            class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
-          >
-            <i class="mdi mdi-lock-outline mr-1"></i> PAY NOW
-          </button>
-        </div>
+        ¡Enhorabuena! Al optar por realizar el pago en una única exhibición, te
+        beneficias con un atractivo descuento del 10%. Esta oferta exclusiva
+        estará vigente durante las siguientes 24 horas. ¡Aprovecha esta
+        oportunidad y obtén tu descuento ahora mismo!
+
+        <div class="h-4"></div>
+        <!-- Espaciador vertical usando una clase de utilidad de Tailwind -->
+
+        <p class="mb-2">Precio original: $50000</p>
+        <p class="mb-4">Descuento: 20%</p>
+
+        <p class="mb-4">
+          Precio con descuento: $<span
+            id="precioConDescuento"
+            class="font-semibold"
+          ></span>
+        </p>
+
+        <p class="text-gray-600 mb-2">
+          Hora de acceso:
+          <span id="hora-acceso" class="font-semibold text-gray-800"></span>
+        </p>
+        <p class="text-gray-600 mb-4">
+          Tiempo restante:
+          <span id="tiempo-restante" class="font-semibold text-red-500"></span>
+        </p>
+        <p class="text-sm text-gray-500">
+          Aprovecha la oferta antes de que expire
+        </p>
         <button
-          id="paymentMethods"
+          id="prevSettlementType"
           type="button"
           class="block w-70 my-5 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Atrás
         </button>
       </div>
+
       <div
         class="mx-auto mt-10 max-w-xl sm:mt-00 question"
         id="thankYou"
