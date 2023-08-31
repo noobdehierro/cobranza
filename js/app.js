@@ -76,6 +76,14 @@ $(document).ready(function () {
           $(".clientName").text(clientName.name);
           $(".totalMont").text(clientName.adeudo);
 
+          const porcentage = 20;
+
+          const descuento = (porcentage / 100) * clientName.adeudo;
+
+          const totalMont = clientName.adeudo - descuento;
+
+          $("#precioConDescuento").text(totalMont);
+
           // $(".clientName").text(data.name);
           // $(".totalMont").text(data.adeudo);
           showquestion("question1");
@@ -107,7 +115,7 @@ $(document).ready(function () {
     showquestion("question1-1");
   });
 
-  $("#prevSettlementType").click(function () {
+  $("#prevSettlementType, #prevSettlementTypeTwo").click(function () {
     showquestion("question1-1");
   });
 
@@ -253,6 +261,19 @@ $(document).ready(function () {
     $(".question").hide();
     $("#" + questionId).show();
   }
+
+  function showstep(stepId) {
+    $(".step").hide();
+    $("#" + stepId).show();
+  }
+
+  $("#payInInstallments").click(function () {
+    showquestion("inInstallment");
+  });
+
+  $("#prevCalculateInstallment").click(function () {
+    showstep("calculateInstallmentForm");
+  });
 
   $(document).ajaxSend(function () {
     $("#overlay").fadeIn(300);
@@ -402,4 +423,207 @@ $(document).ready(function () {
   var segundos = horaAccesoDate.getSeconds();
   document.getElementById("hora-acceso").textContent =
     hora + ":" + minutos + ":" + segundos;
+
+  $("#btnPdfOneExhibition").click(function () {
+    var money = $("#precioConDescuento").text();
+    pdf(money);
+  });
+
+  function pdf(money) {
+    const doc = new jsPDF();
+
+    // Configura los estilos
+    const fontSize = 14;
+    const lineHeight = 18;
+    const textColor = "#333";
+    const titleColor = "#1E90FF";
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(fontSize);
+
+    // Agrega los detalles de la transferencia bancaria
+    const beneficiaryName = "sac";
+    const accountNumber = "1234567890";
+    const amount = "$" + money;
+    const bankName = "BBVA Bancomer";
+    const iban = "US12345678901234567890";
+
+    doc.setTextColor(titleColor);
+    doc.setFontSize(18);
+    doc.text("Transferencia Bancaria", 10, 10);
+
+    doc.setTextColor(textColor);
+    doc.setFontSize(fontSize);
+    doc.text(
+      `Nombre del beneficiario: ${beneficiaryName}`,
+      10,
+      10 + lineHeight
+    );
+    doc.text(`Número de cuenta: ${accountNumber}`, 10, 10 + 2 * lineHeight);
+    doc.text(`Monto: ${amount}`, 10, 10 + 3 * lineHeight);
+    doc.text(`Banco: ${bankName}`, 10, 10 + 4 * lineHeight);
+
+    doc.setTextColor("#FF6347");
+    doc.text(`IBAN: ${iban}`, 10, 10 + 5 * lineHeight);
+
+    // Guarda el PDF
+    doc.save("transferencia-bancaria.pdf");
+  }
+
+  $("#calculateInstallment").click(function () {
+    const radios = document.getElementsByName("bordered-radio");
+
+    let selectedValue;
+    for (const radio of radios) {
+      if (radio.checked) {
+        selectedValue = radio.value;
+        break;
+      }
+    }
+
+    const numeroCuotas = $("#numeroCuotas").val();
+    const cantidadPago = $("#cantidadPago").val();
+    // console.log(monto);
+    // console.log(selectedValue);
+    // console.log(numeroCuotas);
+    // console.log(cantidadPago);
+
+    calculateInstallment(cantidadPago, numeroCuotas, selectedValue);
+  });
+
+  function calculateInstallment(cantidadPago, numeroCuotas, selectedValue) {
+    const total = $(".totalMont").text();
+    // const total = 5000;
+    var ajusteTotal = (total / numeroCuotas).toFixed(2);
+    var totalCuota = cantidadPago * numeroCuotas;
+
+    if (selectedValue === "semanales") {
+      if (numeroCuotas > 100) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El número de cuotas debe ser menor a 100 semanas",
+        });
+        return false;
+      } else {
+        if (totalCuota > total) {
+          Swal.fire({
+            icon: "info",
+            title: "Ajuste",
+            text: `Su pago excede al monto total, asi que el pago ajustado es de $${ajusteTotal} por ${numeroCuotas} semanas ¿deseas continuar con el pago?`,
+            showDenyButton: true,
+            confirmButtonText: "Continuar",
+            denyButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              console.log(ajusteTotal, numeroCuotas, totalCuota);
+              $("#pagoFinal").text(ajusteTotal);
+              $("#plazoFinal").text(numeroCuotas);
+              $("#typoFinal").text(selectedValue);
+
+              showstep("finalInstallment");
+            }
+          });
+        } else if (totalCuota < total) {
+          Swal.fire({
+            icon: "info",
+            title: "Ajuste",
+            text: `No cumple con el monto total, el pago ajustado es de $${ajusteTotal} por ${numeroCuotas} semanas ¿Deseas continuar con el pago?`,
+            showDenyButton: true,
+            confirmButtonText: "Continuar",
+            denyButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $("#pagoFinal").text(ajusteTotal);
+              $("#plazoFinal").text(numeroCuotas);
+              $("#typoFinal").text(selectedValue);
+              showstep("finalInstallment");
+            }
+          });
+        } else if (totalCuota === total) {
+          Swal.fire({
+            icon: "success",
+            title: "Genial!!",
+            text: "Su forma de pago cumple con el monto total",
+            showDenyButton: true,
+            confirmButtonText: "Continuar",
+            denyButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $("#pagoFinal").text(ajusteTotal);
+              $("#plazoFinal").text(numeroCuotas);
+              $("#typoFinal").text(selectedValue);
+              showstep("finalInstallment");
+            }
+          });
+        }
+      }
+    } else if (selectedValue === "mensuales") {
+      if (numeroCuotas > 24) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El número de cuotas debe ser menor a 24 meses",
+        });
+      } else {
+        if (totalCuota > total) {
+          Swal.fire({
+            icon: "info",
+            title: "Ajuste",
+            text: `Su pago excede al monto total, asi que el pago ajustado es de $${ajusteTotal} por ${numeroCuotas} meses ¿deseas continuar con el pago?`,
+            showDenyButton: true,
+            confirmButtonText: "Continuar",
+            denyButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // console.log(ajusteTotal, numeroCuotas, totalCuota);
+              $("#pagoFinal").text(ajusteTotal);
+              $("#plazoFinal").text(numeroCuotas);
+              $("#typoFinal").text(selectedValue);
+              showstep("finalInstallment");
+            }
+          });
+        } else if (totalCuota < total) {
+          Swal.fire({
+            icon: "info",
+            title: "Ajuste",
+            text: `No cumple con el monto total, el pago ajustado es de $${ajusteTotal} por ${numeroCuotas} meses ¿Deseas continuar con el pago?`,
+            showDenyButton: true,
+            confirmButtonText: "Continuar",
+            denyButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $("#pagoFinal").text(ajusteTotal);
+              $("#plazoFinal").text(numeroCuotas);
+              $("#typoFinal").text(selectedValue);
+              showstep("finalInstallment");
+            }
+          });
+        } else if (totalCuota === total) {
+          Swal.fire({
+            icon: "success",
+            title: "Genial!!",
+            text: "Su forma de pago cumple con el monto total",
+            showDenyButton: true,
+            confirmButtonText: "Continuar",
+            denyButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $("#pagoFinal").text(ajusteTotal);
+              $("#plazoFinal").text(numeroCuotas);
+              $("#typoFinal").text(selectedValue);
+              showstep("finalInstallment");
+            }
+          });
+        }
+      }
+    } else if (selectedValue === "quincenales") {
+      const cuota = total / numeroCuotas;
+      $("#totalCuota").text(cuota);
+    }
+  }
+
+  $("#btnPdfInstallment").click(function () {
+    var monto = $("#pagoFinal").text();
+    pdf(monto);
+  });
 });

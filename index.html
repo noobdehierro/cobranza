@@ -18,6 +18,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+
     <link rel="stylesheet" href="css/style.css" />
 
     <!-- IOS -->
@@ -147,12 +151,12 @@
 
       <div class="mx-auto max-w-2xl text-center">
         <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          SACsYTe
+          SAC
         </h2>
       </div>
       <div class="mx-auto mt-10 max-w-xl sm:mt-00 question" id="confirmCode">
         <p class="mt-2 text-lg leading-8 text-gray-600" id="welcome">
-          Hola, bienvenido a SACsYTe
+          Hola, bienvenido a SAC
         </p>
         <!-- aqui va el formulario -->
 
@@ -289,7 +293,7 @@
       >
         <div class="sm:col-span-2 mb-8">
           <p class="text-lg leading-8 text-gray-600">
-            Exelente!! <span class="clientName"></span> .
+            Excelente!! <span class="clientName"></span> .
           </p>
 
           <p class="block text-sm font-semibold leading-6 text-gray-900">
@@ -697,12 +701,12 @@
       >
         <div class="sm:col-span-2 mb-8">
           <h1 class="text-3xl font-bold text-gray-600 mb-4">
-            Exelente noticia
+            Excelente noticia
           </h1>
           <p class="text-lg leading-8 text-gray-600"></p>
         </div>
         ¡Enhorabuena! Al optar por realizar el pago en una única exhibición, te
-        beneficias con un atractivo descuento del 10%. Esta oferta exclusiva
+        beneficias con un atractivo descuento del 20%. Esta oferta exclusiva
         estará vigente durante las siguientes 24 horas. ¡Aprovecha esta
         oportunidad y obtén tu descuento ahora mismo!
 
@@ -730,8 +734,216 @@
         <p class="text-sm text-gray-500">
           Aprovecha la oferta antes de que expire
         </p>
+
+        <div class="mt-2 flex justify-center">
+          <button
+            id="btnPdfOneExhibition"
+            type="submit"
+            class="flex rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <span>Generar PDF de Transferencia</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 ml-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M13.293 10.293a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L10.586 11H4a1 1 0 010-2h6.586l-1.293-1.293a1 1 0 011.414-1.414l3 3z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
         <button
           id="prevSettlementType"
+          type="button"
+          class="block w-70 my-5 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Atrás
+        </button>
+      </div>
+
+      <div
+        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        id="inInstallment"
+        style="display: none"
+      >
+        <div class="sm:col-span-2 mb-8">
+          <h1 class="text-3xl font-bold text-gray-600 mb-4">Excelente!!</h1>
+        </div>
+
+        <!-- Espaciador vertical usando una clase de utilidad de Tailwind -->
+
+        <div class="step" id="calculateInstallmentForm">
+          <p class="text-lg leading-8 text-gray-600">
+            Elije como quieres pagar tus cuotas:
+          </p>
+
+          <div class="mb-6">
+            <label
+              for="default-input"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Cuanto puedes pagar</label
+            >
+            <input
+              type="text"
+              id="cantidadPago"
+              name="cantidadPago"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
+
+          <label
+            for="default-input"
+            class="block mb-2 text-sm font-medium text-gray-900"
+            >selecciona el tipo de cuota</label
+          >
+
+          <div
+            class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700"
+          >
+            <input
+              id="bordered-radio-1"
+              type="radio"
+              value="semanales"
+              name="bordered-radio"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="bordered-radio-1"
+              class="w-full py-4 ml-2 text-sm font-medium text-gray-900"
+              >semanales</label
+            >
+          </div>
+          <div
+            class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700"
+          >
+            <input
+              checked
+              id="bordered-radio-2"
+              type="radio"
+              value="quincenales"
+              name="bordered-radio"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="bordered-radio-2"
+              class="w-full py-4 ml-2 text-sm font-medium text-gray-900"
+              >quincenales</label
+            >
+          </div>
+
+          <div
+            class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700"
+          >
+            <input
+              id="bordered-radio-3"
+              type="radio"
+              value="mensuales"
+              name="bordered-radio"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="bordered-radio-3"
+              class="w-full py-4 ml-2 text-sm font-medium text-gray-900"
+              >mensuales</label
+            >
+          </div>
+          <div class="mb-6 mt-2">
+            <label
+              for="default-input"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >numero de cuotas</label
+            >
+            <input
+              type="text"
+              id="numeroCuotas"
+              name="numeroCuotas"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
+          <div class="mt-2 flex justify-center">
+            <button
+              id="calculateInstallment"
+              type="submit"
+              class="flex rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              <span>Calcular</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 ml-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M13.293 10.293a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L10.586 11H4a1 1 0 010-2h6.586l-1.293-1.293a1 1 0 011.414-1.414l3 3z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="step" id="finalInstallment" style="display: none">
+          <p class="text-lg leading-8 text-black">
+            Tu pago sera de: $<span id="pagoFinal"></span> MXN, en un plazo de
+            <span id="plazoFinal"></span> cuotas <span id="typoFinal"></span>.
+          </p>
+          <div class="mt-2 flex justify-center">
+            <button
+              id="btnPdfInstallment"
+              type="submit"
+              class="flex rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              <span>Generar PDF de Transferencia</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 ml-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M13.293 10.293a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L10.586 11H4a1 1 0 010-2h6.586l-1.293-1.293a1 1 0 011.414-1.414l3 3z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <p class="text-sm text-black mt-5">
+            Al pagar tu primera cuota, podrás seguir accediendo con tu codigo de
+            activación, para que puedas ver tu historial de pagos
+          </p>
+
+          <div class="mt-2 flex justify-center">
+            <button
+              id="prevCalculateInstallment"
+              type="button"
+              class="flex rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6.707 10.293a1 1 0 010 1.414l3 3a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414l-3 3z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Calcular de nuevo</span>
+            </button>
+          </div>
+        </div>
+
+        <button
+          id="prevSettlementTypeTwo"
           type="button"
           class="block w-70 my-5 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
