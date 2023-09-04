@@ -47,55 +47,87 @@ $(document).ready(function () {
   $("#clarificationCelular").mask("0000000000");
   $("#clarificationTelefono").mask("0000000000");
 
+  var clientdata = {
+    id: null,
+    name: null,
+    status: null,
+    adeudo: null,
+    paymentReference: null,
+    paymentBank: null,
+    map: {
+      help: 'help',
+      clarification: 'clarification',
+      imNot: 'imNot',
+      interested: 'interested',
+      exhibition: 'exhibition',
+      Installments: 'Installments',
+    }
+  }
+
+  var porcentaje = 20
+  var descuento = 0;
+
+
   $("#confirmCode").click(function () {
-    var code = $("#code").val();
+    var access_code = $("#access_code").val();
 
     if (
       $("#referencias").is(":checked") &&
       $("#privacidad").is(":checked") &&
-      code.trim() !== ""
+      access_code.trim() !== ""
     ) {
+
       $.ajax({
-        showLoader: true,
-        type: "GET",
-        url: "https://jsonplaceholder.typicode.com/todos/1",
-        // url: "http://serverpwa.test/api/pwa",
+        url: "http://apisac.test/api/check-client",
+        method: "POST",
         data: {
-          code: code,
+          access_code: access_code
         },
         success: function ({ data }) {
-          // console.log(data);
+          // La solicitud se realizó con éxito
+          console.log(data);
 
-          let clientName = {
-            name: "Jorge Leon",
-            adeudo: 50000,
-          };
+          var status = data.status ?? "";
 
-          $("#welcome").hide();
+          if (status) {
 
-          $(".clientName").text(clientName.name);
-          $(".totalMont").text(clientName.adeudo);
+            console.log(data, 'if');
+            clientdata.id = data.id;
+            clientdata.name = data.name;
+            clientdata.status = data.status;
+            clientdata.adeudo = data.debt_amount;
+            clientdata.paymentReference = data.payment_reference;
+            clientdata.paymentBank = data.payment_bank;
 
-          const porcentage = 20;
+            console.log(clientdata);
 
-          const descuento = (porcentage / 100) * clientName.adeudo;
+            $(".clientName").text(clientdata.name);
+            $(".totalMont").text(clientdata.adeudo);
 
-          const totalMont = clientName.adeudo - descuento;
+            var precioWithDescuento = (clientdata.adeudo * porcentaje) / 100;
 
-          $("#precioConDescuento").text(totalMont);
+            descuento = clientdata.adeudo - precioWithDescuento;
 
-          // $(".clientName").text(data.name);
-          // $(".totalMont").text(data.adeudo);
-          showquestion("question1");
+            $("#precioConDescuento").text(descuento);
+            showquestion("question1");
+
+          } else {
+            console.log(data, 'else');
+          }
+
+
         },
-        error: function (error) {
-          console.log(error);
-        },
-      }).done(function () {
-        setTimeout(function () {
-          $("#overlay").fadeOut(300);
-        }, 500);
+        error: function (xhr, status, error) {
+          // Hubo un error en la solicitud
+          console.log(xhr);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Hubo un error en la solicitud, intente nuevamente",
+          })
+        }
       });
+
     }
   });
 
@@ -124,6 +156,23 @@ $(document).ready(function () {
   });
 
   $("#button-2").click(function () {
+
+    $.ajax({
+      showLoader: true,
+      type: "POST",
+      url: "http://apisac.test/api/check-map",
+      data: {
+        client_id: clientdata.id,
+        route: clientdata.map.help
+      },
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (xhr, status, error) {
+        console.log(xhr);
+      }
+    });
+
     showquestion("question2-1");
   });
 
@@ -132,6 +181,23 @@ $(document).ready(function () {
   });
 
   $("#button-3").click(function () {
+
+    $.ajax({
+      showLoader: true,
+      type: "POST",
+      url: "http://apisac.test/api/check-map",
+      data: {
+        client_id: clientdata.id,
+        route: clientdata.map.clarification
+      },
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (xhr, status, error) {
+        console.log(xhr);
+      }
+    });
+
     showquestion("question3-1");
   });
   $("#clarificationSubmit").click(function (e) {
@@ -146,19 +212,22 @@ $(document).ready(function () {
 
       $.ajax({
         showLoader: true,
-        type: "GET",
-        url: "https://jsonplaceholder.typicode.com/todos/1",
-        // url: "http://serverpwa.test/api/pwa",
+        type: "POST",
+        url: "http://apisac.test/api/clarification",
         data: {
-          celular: celular,
+          client_id: clientdata.id,
+          cel: celular,
           email: email,
-          telefono: telefono,
-          file: file,
+          telephone: telefono,
+          image: file,
         },
         success: function (response) {
           console.log(response);
           showquestion("thankYou");
         },
+        error: function (xhr, status, error) {
+          console.log(xhr);
+        }
       });
     }
   });
@@ -175,11 +244,14 @@ $(document).ready(function () {
         console.log(celular, email, telefono, telefonoContacto);
 
         $.ajax({
-          type: "get",
-          // url: "http://serverpwa.test/api/pwa",
-          url: "https://jsonplaceholder.typicode.com/todos/1",
+          type: "post",
+          url: "http://apisac.test/api/help",
           data: {
-            code: 123456,
+            client_id: clientdata.id,
+            cel: celular,
+            email: email,
+            telephone: telefono,
+            telephoneContact: telefonoContacto,
           },
           success: function (response) {
             showquestion("thankYou");
@@ -197,11 +269,28 @@ $(document).ready(function () {
 
   $("#button-4").click(function (e) {
     e.preventDefault();
-    showquestion("question4-1");
+
+    $.ajax({
+      showLoader: true,
+      type: "POST",
+      url: "http://apisac.test/api/check-map",
+      data: {
+        client_id: clientdata.id,
+        route: clientdata.map.imNot
+      },
+      success: function (response) {
+        showquestion("question4-1");
+      },
+      error: function (xhr, status, error) {
+        console.log(xhr);
+      }
+    });
+
   });
 
   $("#button-4-1, #button-4-2, #button-4-3, #button-4-4").click(function (e) {
     e.preventDefault();
+
     $(".question").hide();
 
     // console.log(e.target.textContent);
@@ -209,11 +298,11 @@ $(document).ready(function () {
     let text = e.target.textContent.trim();
 
     $.ajax({
-      type: "get",
-      // url: "http://serverpwa.test/api/pwa",
-      url: "https://jsonplaceholder.typicode.com/todos/1",
+      type: "post",
+      url: "http://apisac.test/api/unknowns",
       data: {
-        respuesta: text,
+        client_id: clientdata.id,
+        response: text,
       },
       success: function (response) {
         showquestion("thankYou");
@@ -245,11 +334,11 @@ $(document).ready(function () {
     }
 
     $.ajax({
-      type: "get",
-      // url: "http://serverpwa.test/api/pwa",
-      url: "https://jsonplaceholder.typicode.com/todos/1",
+      type: "post",
+      url: "http://apisac.test/api/unknowns",
       data: {
-        message: message,
+        client_id: clientdata.id,
+        response: message,
       },
       success: function (response) {
         showquestion("thankYou");
@@ -268,7 +357,23 @@ $(document).ready(function () {
   }
 
   $("#payInInstallments").click(function () {
-    showquestion("inInstallment");
+
+    $.ajax({
+      showLoader: true,
+      type: "POST",
+      url: "http://apisac.test/api/check-map",
+      data: {
+        client_id: clientdata.id,
+        route: clientdata.map.Installments
+      },
+      success: function (response) {
+        showquestion("inInstallment");
+      },
+      error: function (xhr, status, error) {
+        console.log(xhr);
+      }
+    });
+
   });
 
   $("#prevCalculateInstallment").click(function () {
@@ -284,7 +389,21 @@ $(document).ready(function () {
   });
 
   $("#payInOneExhibition").click(function () {
-    showquestion("oneTimeExhibition");
+    $.ajax({
+      showLoader: true,
+      type: "POST",
+      url: "http://apisac.test/api/check-map",
+      data: {
+        client_id: clientdata.id,
+        route: clientdata.map.exhibition
+      },
+      success: function (response) {
+        showquestion("oneTimeExhibition");
+      },
+      error: function (xhr, status, error) {
+        console.log(xhr);
+      }
+    });
   });
 
   $("#creditCard").click(function () {
@@ -425,11 +544,11 @@ $(document).ready(function () {
     hora + ":" + minutos + ":" + segundos;
 
   $("#btnPdfOneExhibition").click(function () {
-    var money = $("#precioConDescuento").text();
-    pdf(money);
+    var total = descuento;
+    pdf(total);
   });
 
-  function pdf(money) {
+  function pdf(total) {
     const doc = new jsPDF();
 
     // Configura los estilos
@@ -442,10 +561,10 @@ $(document).ready(function () {
 
     // Agrega los detalles de la transferencia bancaria
     const beneficiaryName = "sac";
-    const accountNumber = "1234567890";
-    const amount = "$" + money;
-    const bankName = "BBVA Bancomer";
-    const iban = "US12345678901234567890";
+    const accountNumber = clientdata.paymentReference;
+    const amount = "$" + total;
+    const bankName = clientdata.paymentBank;
+    const iban = clientdata.paymentReference + clientdata.paymentBank;
 
     doc.setTextColor(titleColor);
     doc.setFontSize(18);
@@ -466,7 +585,7 @@ $(document).ready(function () {
     doc.text(`IBAN: ${iban}`, 10, 10 + 5 * lineHeight);
 
     // Guarda el PDF
-    doc.save("transferencia-bancaria.pdf");
+    doc.save(clientdata.name + clientdata.paymentReference + ".pdf");
   }
 
   $("#calculateInstallment").click(function () {
@@ -481,18 +600,25 @@ $(document).ready(function () {
     }
 
     const numeroCuotas = $("#numeroCuotas").val();
-    const cantidadPago = $("#cantidadPago").val();
-    // console.log(monto);
-    // console.log(selectedValue);
-    // console.log(numeroCuotas);
-    // console.log(cantidadPago);
+    const cantidadPago = parseFloat($("#cantidadPago").val());
 
+
+    if (cantidadPago === "" || numeroCuotas === "") {
+      Swal.fire({
+        icon: "info",
+        title: "Oops...",
+        text: "llena todos los campos",
+      });
+      return false;
+    }
     calculateInstallment(cantidadPago, numeroCuotas, selectedValue);
+
+
+
   });
 
   function calculateInstallment(cantidadPago, numeroCuotas, selectedValue) {
-    const total = $(".totalMont").text();
-    // const total = 5000;
+    const total = parseFloat(clientdata.adeudo);
     var ajusteTotal = (total / numeroCuotas).toFixed(2);
     var totalCuota = cantidadPago * numeroCuotas;
 
@@ -617,8 +743,68 @@ $(document).ready(function () {
         }
       }
     } else if (selectedValue === "quincenales") {
-      const cuota = total / numeroCuotas;
-      $("#totalCuota").text(cuota);
+
+      if (numeroCuotas > 48) {
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El número de cuotas debe ser menor a 48 quincenas",
+        })
+
+      } else {
+        if (totalCuota > total) {
+          Swal.fire({
+            icon: "info",
+            title: "Ajuste",
+            text: `Su pago excede al monto total, asi que el pago ajustado es de $${ajusteTotal} por ${numeroCuotas} quincenas ¿deseas continuar con el pago?`,
+            showDenyButton: true,
+            confirmButtonText: "Continuar",
+            denyButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $("#pagoFinal").text(ajusteTotal);
+              $("#plazoFinal").text(numeroCuotas);
+              $("#typoFinal").text(selectedValue);
+              showstep("finalInstallment");
+            }
+          });
+        } else if (totalCuota < total) {
+          Swal.fire({
+            icon: "info",
+            title: "Ajuste",
+            text: `No cumple con el monto total, el pago ajustado es de $${ajusteTotal} por ${numeroCuotas} quincenas ¿Deseas continuar con el pago?`,
+            showDenyButton: true,
+            confirmButtonText: "Continuar",
+            denyButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $("#pagoFinal").text(ajusteTotal);
+              $("#plazoFinal").text(numeroCuotas);
+              $("#typoFinal").text(selectedValue);
+              showstep("finalInstallment");
+            }
+
+          })
+        } else if (totalCuota === total) {
+          Swal.fire({
+            icon: "success",
+            title: "Genial!!",
+            text: "Su forma de pago cumple con el monto total",
+            showDenyButton: true,
+            confirmButtonText: "Continuar",
+            denyButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $("#pagoFinal").text(ajusteTotal);
+              $("#plazoFinal").text(numeroCuotas);
+              $("#typoFinal").text(selectedValue);
+              showstep("finalInstallment");
+            }
+          });
+        }
+      }
+
     }
   }
 
