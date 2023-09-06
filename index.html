@@ -21,6 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/tabs.js"></script>
 
     <link rel="stylesheet" href="css/style.css" />
 
@@ -393,6 +394,7 @@
               </label>
               <input
                 type="email"
+                autocomplete="email"
                 id="email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="john.doe@company.com"
@@ -788,7 +790,7 @@
 
           <div class="mb-6">
             <label
-              for="default-input"
+              for="cantidadPago"
               class="block mb-2 text-sm font-medium text-gray-900"
               >Cuanto puedes pagar por cuotas de los $<span class="totalMont">
                 pesos</span
@@ -803,8 +805,8 @@
           </div>
 
           <label
-            for="default-input"
             class="block mb-2 text-sm font-medium text-gray-900"
+            for="bordered-radio-1"
             >selecciona el tipo de cuota</label
           >
 
@@ -860,7 +862,7 @@
           </div>
           <div class="mb-6 mt-2">
             <label
-              for="default-input"
+              for="numeroCuotas"
               class="block mb-2 text-sm font-medium text-gray-900"
               >numero de cuotas</label
             >
@@ -956,6 +958,56 @@
         >
           Atrás
         </button>
+      </div>
+
+      <div
+        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        id="inInstallment"
+        style="display: block"
+      >
+        <div class="sm:col-span-2 mb-8">
+          <h1 class="text-3xl font-bold text-gray-600 mb-4">Excelente!!</h1>
+        </div>
+
+        <ul
+          class="flex text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400"
+        >
+          <li class="w-full">
+            <button
+              id="btn_payment_info"
+              class="inline-block w-full p-4 text-gray-900 bg-gray-100 rounded-l-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
+              aria-current="page"
+            >
+              Información bancaria
+            </button>
+          </li>
+          <li class="w-full">
+            <button
+              id="btn_payment_history"
+              class="inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+            >
+              Historial de pagos
+            </button>
+          </li>
+          <li class="w-full">
+            <button
+              id="btn_frequent_questions"
+              class="inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+            >
+              Preguntas frecuentes
+            </button>
+          </li>
+        </ul>
+
+        <div class="step" id="payment_info">
+          <p class="text-lg leading-8 text-gray-600">información de pago</p>
+        </div>
+        <div class="step" id="payment_history" style="display: none">
+          <p class="text-lg leading-8 text-gray-600">historial de pagos</p>
+        </div>
+        <div class="step" id="frequent_questions" style="display: none">
+          <p class="text-lg leading-8 text-gray-600">preguntas frecuentes</p>
+        </div>
       </div>
 
       <div

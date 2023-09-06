@@ -55,18 +55,17 @@ $(document).ready(function () {
     paymentReference: null,
     paymentBank: null,
     map: {
-      help: 'help',
-      clarification: 'clarification',
-      imNot: 'imNot',
-      interested: 'interested',
-      exhibition: 'exhibition',
-      Installments: 'Installments',
-    }
-  }
+      help: "help",
+      clarification: "clarification",
+      imNot: "imNot",
+      interested: "interested",
+      exhibition: "exhibition",
+      Installments: "Installments",
+    },
+  };
 
-  var porcentaje = 20
+  var porcentaje = 20;
   var descuento = 0;
-
 
   $("#confirmCode").click(function () {
     var access_code = $("#access_code").val();
@@ -76,12 +75,11 @@ $(document).ready(function () {
       $("#privacidad").is(":checked") &&
       access_code.trim() !== ""
     ) {
-
       $.ajax({
         url: "http://apisac.test/api/check-client",
         method: "POST",
         data: {
-          access_code: access_code
+          access_code: access_code,
         },
         success: function ({ data }) {
           // La solicitud se realizó con éxito
@@ -90,8 +88,7 @@ $(document).ready(function () {
           var status = data.status ?? "";
 
           if (status) {
-
-            console.log(data, 'if');
+            console.log(data, "if");
             clientdata.id = data.id;
             clientdata.name = data.name;
             clientdata.status = data.status;
@@ -110,12 +107,9 @@ $(document).ready(function () {
 
             $("#precioConDescuento").text(descuento);
             showquestion("question1");
-
           } else {
-            console.log(data, 'else');
+            console.log(data, "else");
           }
-
-
         },
         error: function (xhr, status, error) {
           // Hubo un error en la solicitud
@@ -124,10 +118,9 @@ $(document).ready(function () {
             icon: "error",
             title: "Oops...",
             text: "Hubo un error en la solicitud, intente nuevamente",
-          })
-        }
+          });
+        },
       });
-
     }
   });
 
@@ -156,21 +149,20 @@ $(document).ready(function () {
   });
 
   $("#button-2").click(function () {
-
     $.ajax({
       showLoader: true,
       type: "POST",
       url: "http://apisac.test/api/check-map",
       data: {
         client_id: clientdata.id,
-        route: clientdata.map.help
+        route: clientdata.map.help,
       },
       success: function (response) {
         console.log(response);
       },
       error: function (xhr, status, error) {
         console.log(xhr);
-      }
+      },
     });
 
     showquestion("question2-1");
@@ -181,21 +173,20 @@ $(document).ready(function () {
   });
 
   $("#button-3").click(function () {
-
     $.ajax({
       showLoader: true,
       type: "POST",
       url: "http://apisac.test/api/check-map",
       data: {
         client_id: clientdata.id,
-        route: clientdata.map.clarification
+        route: clientdata.map.clarification,
       },
       success: function (response) {
         console.log(response);
       },
       error: function (xhr, status, error) {
         console.log(xhr);
-      }
+      },
     });
 
     showquestion("question3-1");
@@ -227,7 +218,7 @@ $(document).ready(function () {
         },
         error: function (xhr, status, error) {
           console.log(xhr);
-        }
+        },
       });
     }
   });
@@ -276,16 +267,15 @@ $(document).ready(function () {
       url: "http://apisac.test/api/check-map",
       data: {
         client_id: clientdata.id,
-        route: clientdata.map.imNot
+        route: clientdata.map.imNot,
       },
       success: function (response) {
         showquestion("question4-1");
       },
       error: function (xhr, status, error) {
         console.log(xhr);
-      }
+      },
     });
-
   });
 
   $("#button-4-1, #button-4-2, #button-4-3, #button-4-4").click(function (e) {
@@ -357,23 +347,21 @@ $(document).ready(function () {
   }
 
   $("#payInInstallments").click(function () {
-
     $.ajax({
       showLoader: true,
       type: "POST",
       url: "http://apisac.test/api/check-map",
       data: {
         client_id: clientdata.id,
-        route: clientdata.map.Installments
+        route: clientdata.map.Installments,
       },
       success: function (response) {
         showquestion("inInstallment");
       },
       error: function (xhr, status, error) {
         console.log(xhr);
-      }
+      },
     });
-
   });
 
   $("#prevCalculateInstallment").click(function () {
@@ -395,14 +383,14 @@ $(document).ready(function () {
       url: "http://apisac.test/api/check-map",
       data: {
         client_id: clientdata.id,
-        route: clientdata.map.exhibition
+        route: clientdata.map.exhibition,
       },
       success: function (response) {
         showquestion("oneTimeExhibition");
       },
       error: function (xhr, status, error) {
         console.log(xhr);
-      }
+      },
     });
   });
 
@@ -602,7 +590,6 @@ $(document).ready(function () {
     const numeroCuotas = $("#numeroCuotas").val();
     const cantidadPago = parseFloat($("#cantidadPago").val());
 
-
     if (cantidadPago === "" || numeroCuotas === "") {
       Swal.fire({
         icon: "info",
@@ -612,9 +599,6 @@ $(document).ready(function () {
       return false;
     }
     calculateInstallment(cantidadPago, numeroCuotas, selectedValue);
-
-
-
   });
 
   function calculateInstallment(cantidadPago, numeroCuotas, selectedValue) {
@@ -743,15 +727,12 @@ $(document).ready(function () {
         }
       }
     } else if (selectedValue === "quincenales") {
-
       if (numeroCuotas > 48) {
-
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "El número de cuotas debe ser menor a 48 quincenas",
-        })
-
+        });
       } else {
         if (totalCuota > total) {
           Swal.fire({
@@ -784,8 +765,7 @@ $(document).ready(function () {
               $("#typoFinal").text(selectedValue);
               showstep("finalInstallment");
             }
-
-          })
+          });
         } else if (totalCuota === total) {
           Swal.fire({
             icon: "success",
@@ -804,9 +784,20 @@ $(document).ready(function () {
           });
         }
       }
-
     }
   }
+
+  $("#btn_payment_info").click(function () {
+    showstep("payment_info");
+  });
+
+  $("#btn_payment_history").click(function () {
+    showstep("payment_history");
+  });
+
+  $("#btn_frequent_questions").click(function () {
+    showstep("frequent_questions");
+  });
 
   $("#btnPdfInstallment").click(function () {
     var monto = $("#pagoFinal").text();
