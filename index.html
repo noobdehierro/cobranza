@@ -96,7 +96,7 @@
   }
   ```
 -->
-    <div class="isolate px-6 py-24 sm:py-32 lg:px-8">
+    <div class="isolate px-6 py-14 sm:py-32 lg:px-8">
       <div
         class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
         aria-hidden="true"
@@ -159,69 +159,73 @@
           SAC
         </h2>
       </div>
-      <div class="mx-auto mt-10 max-w-xl sm:mt-00 question" id="confirmCode">
+      <div class="mx-auto mt-6 max-w-xl sm:mt-00 question" id="confirmCode">
         <p class="mt-2 text-lg leading-8 text-gray-600" id="welcome">
           Hola, bienvenido a SAC
         </p>
         <!-- aqui va el formulario -->
 
         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-          <div class="sm:col-span-2">
-            <p class="text-lg leading-8 text-gray-600">
-              Nosotros te ayudaremos a liquidar tu deuda
-            </p>
-            <label
-              for="access_code"
-              class="block text-sm font-semibold leading-6 text-gray-900"
-              >Ingresa tu código de activación.</label
-            >
-            <div class="mt-2.5">
-              <input
-                type="text"
-                name="access_code"
-                id="access_code"
-                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
+          <form id="confirm_code_form">
+            <div class="sm:col-span-2">
+              <p class="text-lg leading-8 text-gray-600">
+                Nosotros te ayudaremos a liquidar tu deuda
+              </p>
+              <label
+                for="access_code"
+                class="block text-sm font-semibold leading-6 text-gray-900"
+                >Ingresa tu código de activación.</label
+              >
+              <div class="mt-2.5">
+                <input
+                  type="text"
+                  name="access_code"
+                  id="access_code"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
             </div>
-          </div>
 
-          <div class="flex items-center">
-            <input
-              type="checkbox"
-              id="referencias"
-              class="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 border border-transparent ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200"
-              checked
-            />
-            <label
-              class="text-sm text-gray-500 ml-3 dark:text-gray-400"
-              for="referencias"
-            >
-              <a href="#" class="text-indigo-600 hover:underline ml-1"
-                >Referencias de crédito</a
+            <div class="flex items-center">
+              <input
+                name="referencias"
+                type="checkbox"
+                id="referencias"
+                class="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 border border-transparent ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200"
+                checked
+              />
+              <label
+                class="text-sm text-gray-500 ml-3 dark:text-gray-400"
+                for="referencias"
               >
-            </label>
-          </div>
+                <a href="#" class="text-indigo-600 hover:underline ml-1"
+                  >Referencias de crédito</a
+                >
+              </label>
+            </div>
 
-          <div class="flex items-center">
-            <input
-              type="checkbox"
-              id="privacidad"
-              class="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 border border-transparent ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200"
-              checked
-            />
-            <label
-              class="text-sm text-gray-500 ml-3 dark:text-gray-400"
-              for="privacidad"
-            >
-              <a href="#" class="text-indigo-600 hover:underline ml-1"
-                >Aviso de privacidad</a
+            <div class="flex items-center">
+              <input
+                name="privacidad"
+                type="checkbox"
+                id="privacidad"
+                class="relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-green-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 border border-transparent ring-1 ring-transparent checked:hover:bg-green-600 checked:focus:bg-green-600 focus:border-green-600 focus:ring-green-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-green-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-green-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-green-200"
+                checked
+              />
+              <label
+                class="text-sm text-gray-500 ml-3 dark:text-gray-400"
+                for="privacidad"
               >
-            </label>
-          </div>
+                <a href="#" class="text-indigo-600 hover:underline ml-1"
+                  >Aviso de privacidad</a
+                >
+              </label>
+            </div>
+          </form>
         </div>
         <div class="mt-2">
           <button
-            id="confirmCode"
+            id="inputConfirmCode"
             type="button"
             class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -231,7 +235,7 @@
       </div>
 
       <div
-        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        class="mx-auto mt-6 max-w-xl sm:mt-00 question"
         id="question1"
         style="display: none"
       >
@@ -291,7 +295,7 @@
         </div>
       </div>
       <div
-        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        class="mx-auto mt-6 max-w-xl sm:mt-00 question"
         id="question1-1"
         style="display: none"
       >
@@ -338,7 +342,7 @@
       </div>
 
       <div
-        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        class="mx-auto mt-6 max-w-xl sm:mt-00 question"
         id="question2-1"
         style="display: none"
       >
@@ -454,7 +458,7 @@
       </div>
 
       <div
-        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        class="mx-auto mt-6 max-w-xl sm:mt-00 question"
         id="question4-1"
         style="display: none"
       >
@@ -524,7 +528,7 @@
       </div>
 
       <div
-        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        class="mx-auto mt-6 max-w-xl sm:mt-00 question"
         id="explicationForm"
         style="display: none"
       >
@@ -586,7 +590,7 @@
       </div>
 
       <div
-        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        class="mx-auto mt-6 max-w-xl sm:mt-00 question"
         id="question3-1"
         style="display: none"
       >
@@ -706,7 +710,7 @@
       </div>
 
       <div
-        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        class="mx-auto mt-6 max-w-xl sm:mt-00 question"
         id="oneTimeExhibition"
         style="display: none"
       >
@@ -777,7 +781,7 @@
       </div>
 
       <div
-        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        class="mx-auto mt-6 max-w-xl sm:mt-00 question"
         id="inInstallment"
         style="display: none"
       >
@@ -965,9 +969,9 @@
       </div>
 
       <div
-        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
-        id="inInstallment"
-        style="display: block"
+        class="mx-auto mt-6 max-w-xl sm:mt-00 question"
+        id="homeClient"
+        style="display: none"
       >
         <div class="sm:col-span-2 mb-8">
           <h2 class="text-xl font-bold text-gray-600 mb-4">Bienvenido</h2>
@@ -984,7 +988,7 @@
         <div class="sm:hidden">
           <select
             id="tabs"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-indigo-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option selected value="1">Dashboard</option>
             <option value="2">Información bancaria</option>
@@ -998,7 +1002,7 @@
           <li class="w-full">
             <button
               id="btn_dashboard"
-              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               Dashboard
             </button>
@@ -1006,7 +1010,7 @@
           <li class="w-full">
             <button
               id="btn_payment_info"
-              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               Información bancaria
             </button>
@@ -1014,7 +1018,7 @@
           <li class="w-full">
             <button
               id="btn_payment_history"
-              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               Historial de pagos
             </button>
@@ -1022,7 +1026,7 @@
           <li class="w-full">
             <button
               id="btn_frequent_questions"
-              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               Preguntas frecuentes
             </button>
@@ -1036,16 +1040,18 @@
                 class="w-full text-sm text-left text-gray-500 dark:text-gray-800"
               >
                 <tbody
-                  class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                  class="bg-white divide-y dark:divide-gray-700 dark:bg-indigo-500"
                 >
                   <tr class="border-b border-gray-200 dark:border-gray-700">
                     <th
                       scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-600"
                     >
                       Cliente
                     </th>
-                    <td class="px-6 py-4">
+                    <td
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
+                    >
                       <span class="clientName">
                         Juan Perez roberto juarez
                       </span>
@@ -1054,32 +1060,40 @@
                   <tr class="border-b border-gray-200 dark:border-gray-700">
                     <th
                       scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-600"
                     >
                       Status
                     </th>
-                    <td class="px-6 py-4"><span id="status">Activo</span></td>
-                  </tr>
-                  <tr class="border-b border-gray-200 dark:border-gray-700">
-                    <th
-                      scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                    <td
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
                     >
-                      Proximo pago
-                    </th>
-                    <td class="px-6 py-4">
-                      <span id="next_payment">01/01/2022</span>
+                      <span id="status">prueba</span>
                     </td>
                   </tr>
                   <tr class="border-b border-gray-200 dark:border-gray-700">
                     <th
                       scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-600"
+                    >
+                      Proximo pago
+                    </th>
+                    <td
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
+                    >
+                      <span id="next_payment_date">01/01/2022 prueba</span>
+                    </td>
+                  </tr>
+                  <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-600"
                     >
                       Monto restante
                     </th>
-                    <td class="px-6 py-4">
-                      $<span id="balance">10000</span> MXN
+                    <td
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
+                    >
+                      $<span id="remaining_debt_amount">10000 prueba</span> MXN
                     </td>
                   </tr>
                 </tbody>
@@ -1097,37 +1111,45 @@
                 class="w-full text-sm text-left text-gray-500 dark:text-gray-800"
               >
                 <tbody
-                  class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                  class="bg-white divide-y dark:divide-gray-700 dark:bg-indigo-500"
                 >
                   <tr class="border-b border-gray-200 dark:border-gray-700">
                     <th
                       scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-600"
                     >
                       Banco a transferir
                     </th>
-                    <td class="px-6 py-4"><span id="bank">Banorte</span></td>
-                  </tr>
-                  <tr class="border-b border-gray-200 dark:border-gray-700">
-                    <th
-                      scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                    <td
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
                     >
-                      Referencia de pago
-                    </th>
-                    <td class="px-6 py-4">
-                      <span id="reference_number">1234567890</span>
+                      <span id="bank">Banorte prueba</span>
                     </td>
                   </tr>
                   <tr class="border-b border-gray-200 dark:border-gray-700">
                     <th
                       scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-600"
+                    >
+                      Referencia de pago
+                    </th>
+                    <td
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
+                    >
+                      <span id="reference_number">1234567890 prueba</span>
+                    </td>
+                  </tr>
+                  <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-600"
                     >
                       Clave interbancaria
                     </th>
-                    <td class="px-6 py-4">
-                      <span id="interbank_key">1234567890</span>
+                    <td
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
+                    >
+                      <span id="interbank_code">1234567890 prueba</span>
                     </td>
                   </tr>
                 </tbody>
@@ -1143,58 +1165,56 @@
             <p class="text-lg leading-8 text-gray-600"></p>
           </div>
 
-          <div class="relative overflow-x-auto">
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table
-              class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+              class="w-full text-sm text-left text-gray-500 dark:text-gray-800"
             >
-              <thead
-                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-              >
-                <tr>
-                  <th scope="col" class="px-6 py-3">Product name</th>
-                  <th scope="col" class="px-6 py-3">Color</th>
-                  <th scope="col" class="px-6 py-3">Category</th>
-                  <th scope="col" class="px-6 py-3">Price</th>
+              <thead>
+                <tr class="border-b border-gray-200 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-600"
+                  >
+                    Cliente
+                  </th>
+                  <td
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-600"
+                  >
+                    Fecha
+                  </td>
+                  <th
+                    scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-600"
+                  >
+                    Monto
+                  </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr
-                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+
+              <tbody
+                id="payment_history_table"
+                class="bg-white divide-y dark:divide-gray-700 dark:bg-indigo-500"
+              >
+                <!-- <tr class="border-b border-gray-200 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
                   >
-                    Apple MacBook Pro 17"
+                    Status
                   </th>
-                  <td class="px-6 py-4">Silver</td>
-                  <td class="px-6 py-4">Laptop</td>
-                  <td class="px-6 py-4">$2999</td>
-                </tr>
-                <tr
-                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                >
                   <th
                     scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
                   >
-                    Microsoft Surface Pro
+                    Status
                   </th>
-                  <td class="px-6 py-4">White</td>
-                  <td class="px-6 py-4">Laptop PC</td>
-                  <td class="px-6 py-4">$1999</td>
-                </tr>
-                <tr class="bg-white dark:bg-gray-800">
                   <th
                     scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
                   >
-                    Magic Mouse 2
+                    Status
                   </th>
-                  <td class="px-6 py-4">Black</td>
-                  <td class="px-6 py-4">Accessories</td>
-                  <td class="px-6 py-4">$99</td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>
@@ -1210,7 +1230,7 @@
                   ¿Cuáles son los métodos de pago aceptados?
                 </button>
                 <div class="contenido-acordeon">
-                  <p class="text-center text-sm text-gray-600 mb-2">
+                  <p class="text-center text-sm text-white mb-2">
                     Aceptamos pagos a través de transferencias bancarias y
                     cheques.
                   </p>
@@ -1221,7 +1241,7 @@
                   ¿Cuáles son los plazos de pago?
                 </button>
                 <div class="contenido-acordeon">
-                  <p class="text-center text-sm text-gray-600 mb-2">
+                  <p class="text-center text-sm text-white mb-2">
                     Los plazos de pago varían según el tipo de acuerdo que se
                     acordó con nosotros.
                   </p>
@@ -1232,7 +1252,7 @@
                   ¿Qué debo hacer si tengo un problema con mi pago?
                 </button>
                 <div class="contenido-acordeon">
-                  <p class="text-center text-sm text-gray-600 mb-2">
+                  <p class="text-center text-sm text-white mb-2">
                     Si experimentas problemas con un pago, por favor, ponte en
                     contacto con nuestro servicio de atención al cliente de
                     inmediato para recibir asistencia.
@@ -1245,7 +1265,7 @@
       </div>
 
       <div
-        class="mx-auto mt-10 max-w-xl sm:mt-00 question"
+        class="mx-auto mt-6 max-w-xl sm:mt-00 question"
         id="thankYou"
         style="display: none"
       >

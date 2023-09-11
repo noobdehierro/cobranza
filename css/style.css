@@ -112,12 +112,12 @@ th {
     width: 100%;
     padding: 10px;
     text-align: left;
-    background-color: #f0f4f7 !important;
-    border: 1px solid #fff !important;
+    background-color: #4f46e5;
+    /* border: 1px solid #fff; */
     cursor: pointer;
-    color: #20282e !important;
-    border-radius: 10px !important;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5) !important;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     margin-top: 10px;
 
 }
@@ -125,9 +125,10 @@ th {
 .contenido-acordeon {
     display: none;
     padding: 10px;
-    background-color: #f0f4f7 !important;
-    border: 1px solid #ccc !important;
-    border-radius: 10px !important;
+    background-color: #6366F1;
+    border: 1px solid #ccc;
+    color: #fff;
+    border-radius: 10px;
     margin-bottom: 10px;
 
 }

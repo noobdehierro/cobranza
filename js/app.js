@@ -46,14 +46,25 @@ $(document).ready(function () {
   $("#telefonoContacto").mask("0000000000");
   $("#clarificationCelular").mask("0000000000");
   $("#clarificationTelefono").mask("0000000000");
+  $("#access_code").mask("0000000000");
 
   var clientdata = {
-    id: null,
-    name: null,
-    status: null,
-    adeudo: null,
-    paymentReference: null,
-    paymentBank: null,
+    client: {
+      id: null,
+      name: null,
+      status: null,
+    },
+    payments: [],
+    debt: {
+      id: null,
+      client_id: null,
+      debt_amount: null,
+      payment_reference: null,
+      interbank_code: null,
+      payment_bank: null,
+      remaining_debt_amount: null,
+      next_payment_date: null,
+    },
     map: {
       help: "help",
       clarification: "clarification",
@@ -67,14 +78,15 @@ $(document).ready(function () {
   var porcentaje = 20;
   var descuento = 0;
 
-  $("#confirmCode").click(function () {
+  $("#inputConfirmCode").click(function () {
     var access_code = $("#access_code").val();
 
-    if (
-      $("#referencias").is(":checked") &&
-      $("#privacidad").is(":checked") &&
-      access_code.trim() !== ""
-    ) {
+    // if (
+    //   $("#referencias").is(":checked") &&
+    //   $("#privacidad").is(":checked") &&
+    //   access_code.trim() !== ""
+    // )
+    if ($("#confirm_code_form").valid()) {
       $.ajax({
         url: "http://apisac.test/api/check-client",
         method: "POST",
@@ -83,41 +95,80 @@ $(document).ready(function () {
         },
         success: function ({ data }) {
           // La solicitud se realizó con éxito
+
           console.log(data);
 
-          var status = data.status ?? "";
+          clientdata.client.id = data.client.id;
+          clientdata.client.name = data.client.name;
+          clientdata.client.status = data.client.status;
+          clientdata.debt.debt_amount = data.debt.debt_amount;
 
-          if (status) {
-            console.log(data, "if");
-            clientdata.id = data.id;
-            clientdata.name = data.name;
-            clientdata.status = data.status;
-            clientdata.adeudo = data.debt_amount;
-            clientdata.paymentReference = data.payment_reference;
-            clientdata.paymentBank = data.payment_bank;
+          clientdata.debt.interbank_code = data.debt.interbank_code;
+          clientdata.debt.payment_reference = data.debt.payment_reference;
+          clientdata.debt.payment_bank = data.debt.payment_bank;
+          clientdata.debt.remaining_debt_amount =
+            data.debt.remaining_debt_amount;
+          clientdata.debt.next_payment_date = data.debt.next_payment_date;
 
-            console.log(clientdata);
+          clientdata.payments = data.payments;
 
-            $(".clientName").text(clientdata.name);
-            $(".totalMont").text(clientdata.adeudo);
+          $(".clientName").text(clientdata.client.name);
+          $(".totalMont").text(clientdata.debt.debt_amount);
 
-            var precioWithDescuento = (clientdata.adeudo * porcentaje) / 100;
+          var precioWithDescuento =
+            (clientdata.debt.debt_amount * porcentaje) / 100;
 
-            descuento = clientdata.adeudo - precioWithDescuento;
+          descuento = clientdata.debt.debt_amount - precioWithDescuento;
 
-            $("#precioConDescuento").text(descuento);
+          $("#precioConDescuento").text(descuento);
+
+          if (clientdata.client.status !== "activo") {
             showquestion("question1");
           } else {
-            console.log(data, "else");
+            $("#bank").text(clientdata.debt.payment_bank);
+            $("#reference_number").text(clientdata.debt.payment_reference);
+            $("#interbank_code").text(clientdata.debt.interbank_code);
+            $("#status").text(clientdata.client.status);
+            $("#next_payment_date").text(clientdata.debt.next_payment_date);
+            $("#remaining_debt_amount").text(
+              clientdata.debt.remaining_debt_amount
+            );
+
+            $.each(clientdata.payments, function (indexInArray, data) {
+              var fila = `<tr class="border-b border-gray-200 dark:border-gray-700">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
+          >
+            ${clientdata.client.name}
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
+          >
+            ${data.payment_date}
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-indigo-500"
+          >
+            ${data.paid_amount}
+          </th>
+        </tr> `;
+
+              $("#payment_history_table").append(fila);
+            });
+
+            showquestion("homeClient");
           }
         },
-        error: function (xhr, status, error) {
+        error: function (error) {
           // Hubo un error en la solicitud
-          console.log(xhr);
+          console.log(error.responseJSON);
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Hubo un error en la solicitud, intente nuevamente",
+            text: "Hubo un error en la solicitud, intente de nuevo",
           });
         },
       });
@@ -154,7 +205,7 @@ $(document).ready(function () {
       type: "POST",
       url: "http://apisac.test/api/check-map",
       data: {
-        client_id: clientdata.id,
+        client_id: clientdata.client.id,
         route: clientdata.map.help,
       },
       success: function (response) {
@@ -178,7 +229,7 @@ $(document).ready(function () {
       type: "POST",
       url: "http://apisac.test/api/check-map",
       data: {
-        client_id: clientdata.id,
+        client_id: clientdata.client.id,
         route: clientdata.map.clarification,
       },
       success: function (response) {
@@ -206,7 +257,7 @@ $(document).ready(function () {
         type: "POST",
         url: "http://apisac.test/api/clarification",
         data: {
-          client_id: clientdata.id,
+          client_id: clientdata.client.id,
           cel: celular,
           email: email,
           telephone: telefono,
@@ -238,7 +289,7 @@ $(document).ready(function () {
           type: "post",
           url: "http://apisac.test/api/help",
           data: {
-            client_id: clientdata.id,
+            client_id: clientdata.client.id,
             cel: celular,
             email: email,
             telephone: telefono,
@@ -266,7 +317,7 @@ $(document).ready(function () {
       type: "POST",
       url: "http://apisac.test/api/check-map",
       data: {
-        client_id: clientdata.id,
+        client_id: clientdata.client.id,
         route: clientdata.map.imNot,
       },
       success: function (response) {
@@ -291,7 +342,7 @@ $(document).ready(function () {
       type: "post",
       url: "http://apisac.test/api/unknowns",
       data: {
-        client_id: clientdata.id,
+        client_id: clientdata.client.id,
         response: text,
       },
       success: function (response) {
@@ -327,7 +378,7 @@ $(document).ready(function () {
       type: "post",
       url: "http://apisac.test/api/unknowns",
       data: {
-        client_id: clientdata.id,
+        client_id: clientdata.client.id,
         response: message,
       },
       success: function (response) {
@@ -352,7 +403,7 @@ $(document).ready(function () {
       type: "POST",
       url: "http://apisac.test/api/check-map",
       data: {
-        client_id: clientdata.id,
+        client_id: clientdata.client.id,
         route: clientdata.map.Installments,
       },
       success: function (response) {
@@ -382,7 +433,7 @@ $(document).ready(function () {
       type: "POST",
       url: "http://apisac.test/api/check-map",
       data: {
-        client_id: clientdata.id,
+        client_id: clientdata.client.id,
         route: clientdata.map.exhibition,
       },
       success: function (response) {
@@ -400,6 +451,33 @@ $(document).ready(function () {
 
   $("#paymentMethods").click(function () {
     showquestion("selectPaymentMethod");
+  });
+
+  $("#confirm_code_form").validate({
+    rules: {
+      access_code: {
+        minlength: 6,
+        required: true,
+      },
+      referencias: {
+        required: true,
+      },
+      privacidad: {
+        required: true,
+      },
+    },
+    messages: {
+      access_code: {
+        minlength: "El código de activación debe tener al menos 6 caracteres.",
+        required: "Ingresa el código de activación.",
+      },
+      referencias: {
+        required: "Requerido.",
+      },
+      privacidad: {
+        required: "Requerido.",
+      },
+    },
   });
 
   $("#explicationForm").validate({
@@ -549,10 +627,11 @@ $(document).ready(function () {
 
     // Agrega los detalles de la transferencia bancaria
     const beneficiaryName = "sac";
-    const accountNumber = clientdata.paymentReference;
+    const accountNumber = clientdata.debt.payment_reference;
     const amount = "$" + total;
-    const bankName = clientdata.paymentBank;
-    const iban = clientdata.paymentReference + clientdata.paymentBank;
+    const bankName = clientdata.debt.payment_bank;
+    const iban =
+      clientdata.debt.payment_reference + clientdata.debt.payment_bank;
 
     doc.setTextColor(titleColor);
     doc.setFontSize(18);
@@ -573,7 +652,9 @@ $(document).ready(function () {
     doc.text(`IBAN: ${iban}`, 10, 10 + 5 * lineHeight);
 
     // Guarda el PDF
-    doc.save(clientdata.name + clientdata.paymentReference + ".pdf");
+    doc.save(
+      clientdata.client.name + clientdata.debt.payment_reference + ".pdf"
+    );
   }
 
   $("#calculateInstallment").click(function () {
@@ -602,7 +683,7 @@ $(document).ready(function () {
   });
 
   function calculateInstallment(cantidadPago, numeroCuotas, selectedValue) {
-    const total = parseFloat(clientdata.adeudo);
+    const total = parseFloat(clientdata.debt.debt_amount);
     var ajusteTotal = (total / numeroCuotas).toFixed(2);
     var totalCuota = cantidadPago * numeroCuotas;
 
@@ -630,6 +711,24 @@ $(document).ready(function () {
               $("#plazoFinal").text(numeroCuotas);
               $("#typoFinal").text(selectedValue);
 
+              $.ajax({
+                showLoader: true,
+                type: "POST",
+                url: "http://apisac.test/api/check-agreements",
+                data: {
+                  client_id: clientdata.client.id,
+                  number_installments: numeroCuotas,
+                  unit_time: selectedValue,
+                  amount_per_installment: ajusteTotal,
+                },
+                success: function (response) {
+                  console.log(response);
+                },
+                error: function (error) {
+                  console.log(error);
+                },
+              });
+
               showstep("finalInstallment");
             }
           });
@@ -646,6 +745,25 @@ $(document).ready(function () {
               $("#pagoFinal").text(ajusteTotal);
               $("#plazoFinal").text(numeroCuotas);
               $("#typoFinal").text(selectedValue);
+
+              $.ajax({
+                showLoader: true,
+                type: "POST",
+                url: "http://apisac.test/api/check-agreements",
+                data: {
+                  client_id: clientdata.client.id,
+                  number_installments: numeroCuotas,
+                  unit_time: selectedValue,
+                  amount_per_installment: ajusteTotal,
+                },
+                success: function (response) {
+                  console.log(response);
+                },
+                error: function (error) {
+                  console.log(error);
+                },
+              });
+
               showstep("finalInstallment");
             }
           });
@@ -662,6 +780,25 @@ $(document).ready(function () {
               $("#pagoFinal").text(ajusteTotal);
               $("#plazoFinal").text(numeroCuotas);
               $("#typoFinal").text(selectedValue);
+
+              $.ajax({
+                showLoader: true,
+                type: "POST",
+                url: "http://apisac.test/api/check-agreements",
+                data: {
+                  client_id: clientdata.client.id,
+                  number_installments: numeroCuotas,
+                  unit_time: selectedValue,
+                  amount_per_installment: ajusteTotal,
+                },
+                success: function (response) {
+                  console.log(response);
+                },
+                error: function (error) {
+                  console.log(error);
+                },
+              });
+
               showstep("finalInstallment");
             }
           });
@@ -689,6 +826,25 @@ $(document).ready(function () {
               $("#pagoFinal").text(ajusteTotal);
               $("#plazoFinal").text(numeroCuotas);
               $("#typoFinal").text(selectedValue);
+
+              $.ajax({
+                showLoader: true,
+                type: "POST",
+                url: "http://apisac.test/api/check-agreements",
+                data: {
+                  client_id: clientdata.client.id,
+                  number_installments: numeroCuotas,
+                  unit_time: selectedValue,
+                  amount_per_installment: ajusteTotal,
+                },
+                success: function (response) {
+                  console.log(response);
+                },
+                error: function (error) {
+                  console.log(error);
+                },
+              });
+
               showstep("finalInstallment");
             }
           });
@@ -705,6 +861,25 @@ $(document).ready(function () {
               $("#pagoFinal").text(ajusteTotal);
               $("#plazoFinal").text(numeroCuotas);
               $("#typoFinal").text(selectedValue);
+
+              $.ajax({
+                showLoader: true,
+                type: "POST",
+                url: "http://apisac.test/api/check-agreements",
+                data: {
+                  client_id: clientdata.client.id,
+                  number_installments: numeroCuotas,
+                  unit_time: selectedValue,
+                  amount_per_installment: ajusteTotal,
+                },
+                success: function (response) {
+                  console.log(response);
+                },
+                error: function (error) {
+                  console.log(error);
+                },
+              });
+
               showstep("finalInstallment");
             }
           });
@@ -721,6 +896,25 @@ $(document).ready(function () {
               $("#pagoFinal").text(ajusteTotal);
               $("#plazoFinal").text(numeroCuotas);
               $("#typoFinal").text(selectedValue);
+
+              $.ajax({
+                showLoader: true,
+                type: "POST",
+                url: "http://apisac.test/api/check-agreements",
+                data: {
+                  client_id: clientdata.client.id,
+                  number_installments: numeroCuotas,
+                  unit_time: selectedValue,
+                  amount_per_installment: ajusteTotal,
+                },
+                success: function (response) {
+                  console.log(response);
+                },
+                error: function (error) {
+                  console.log(error);
+                },
+              });
+
               showstep("finalInstallment");
             }
           });
@@ -747,6 +941,25 @@ $(document).ready(function () {
               $("#pagoFinal").text(ajusteTotal);
               $("#plazoFinal").text(numeroCuotas);
               $("#typoFinal").text(selectedValue);
+
+              $.ajax({
+                showLoader: true,
+                type: "POST",
+                url: "http://apisac.test/api/check-agreements",
+                data: {
+                  client_id: clientdata.client.id,
+                  number_installments: numeroCuotas,
+                  unit_time: selectedValue,
+                  amount_per_installment: ajusteTotal,
+                },
+                success: function (response) {
+                  console.log(response);
+                },
+                error: function (error) {
+                  console.log(error);
+                },
+              });
+
               showstep("finalInstallment");
             }
           });
@@ -763,6 +976,25 @@ $(document).ready(function () {
               $("#pagoFinal").text(ajusteTotal);
               $("#plazoFinal").text(numeroCuotas);
               $("#typoFinal").text(selectedValue);
+
+              $.ajax({
+                showLoader: true,
+                type: "POST",
+                url: "http://apisac.test/api/check-agreements",
+                data: {
+                  client_id: clientdata.client.id,
+                  number_installments: numeroCuotas,
+                  unit_time: selectedValue,
+                  amount_per_installment: ajusteTotal,
+                },
+                success: function (response) {
+                  console.log(response);
+                },
+                error: function (error) {
+                  console.log(error);
+                },
+              });
+
               showstep("finalInstallment");
             }
           });
@@ -779,6 +1011,25 @@ $(document).ready(function () {
               $("#pagoFinal").text(ajusteTotal);
               $("#plazoFinal").text(numeroCuotas);
               $("#typoFinal").text(selectedValue);
+
+              $.ajax({
+                showLoader: true,
+                type: "POST",
+                url: "http://apisac.test/api/check-agreements",
+                data: {
+                  client_id: clientdata.client.id,
+                  number_installments: numeroCuotas,
+                  unit_time: selectedValue,
+                  amount_per_installment: ajusteTotal,
+                },
+                success: function (response) {
+                  console.log(response);
+                },
+                error: function (error) {
+                  console.log(error);
+                },
+              });
+
               showstep("finalInstallment");
             }
           });
@@ -824,20 +1075,17 @@ $(document).ready(function () {
       case "4":
         showstep("frequent_questions");
         break;
-
     }
-
-  })
+  });
 
   $("#firstFrequentQuestions").click(function () {
-    $(this).next().toggle();
-  })
+    $(this).next().slideToggle();
+  });
 
   $("#secondFrequentQuestions").click(function () {
-    $(this).next().toggle();
-  })
+    $(this).next().slideToggle();
+  });
   $("#thirdFrequentQuestions").click(function () {
-    $(this).next().toggle();
-  })
-
+    $(this).next().slideToggle();
+  });
 });
