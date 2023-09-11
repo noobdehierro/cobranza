@@ -22,6 +22,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/tabs.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="css/style.css" />
 
@@ -151,7 +155,7 @@
       </div>
 
       <div class="mx-auto max-w-2xl text-center">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           SAC
         </h2>
       </div>
@@ -339,7 +343,7 @@
         style="display: none"
       >
         <div class="sm:col-span-2 mb-8">
-          <h1 class="text-3xl font-bold text-gray-600 mb-4">
+          <h1 class="text-xl font-bold text-gray-600 mb-4">
             Ayudanos a Encontrar a <span class="clientName"></span>
           </h1>
           <p class="text-lg leading-8 text-gray-600">
@@ -455,7 +459,7 @@
         style="display: none"
       >
         <div class="sm:col-span-2 mb-8">
-          <h1 class="text-3xl font-bold text-gray-600 mb-4">
+          <h1 class="text-xl font-bold text-gray-600 mb-4">
             Disculpas por la Confusión
           </h1>
           <p class="text-lg leading-8 text-gray-600">
@@ -525,7 +529,7 @@
         style="display: none"
       >
         <div class="sm:col-span-2 mb-8">
-          <h1 class="text-3xl font-bold text-gray-600 mb-4">
+          <h1 class="text-xl font-bold text-gray-600 mb-4">
             Donde conoces a <span class="clientName"></span>
           </h1>
 
@@ -587,7 +591,7 @@
         style="display: none"
       >
         <div class="sm:col-span-2 mb-8">
-          <h1 class="text-3xl font-bold text-gray-600 mb-4">
+          <h1 class="text-xl font-bold text-gray-600 mb-4">
             Aclaración sobre el pago
           </h1>
           <p class="text-lg leading-8 text-gray-600">
@@ -707,7 +711,7 @@
         style="display: none"
       >
         <div class="sm:col-span-2 mb-8">
-          <h1 class="text-3xl font-bold text-gray-600 mb-4">
+          <h1 class="text-xl font-bold text-gray-600 mb-4">
             Excelente noticia
           </h1>
           <p class="text-lg leading-8 text-gray-600"></p>
@@ -778,7 +782,7 @@
         style="display: none"
       >
         <div class="sm:col-span-2 mb-8">
-          <h1 class="text-3xl font-bold text-gray-600 mb-4">Excelente!!</h1>
+          <h1 class="text-xl font-bold text-gray-600 mb-4">Excelente!!</h1>
         </div>
 
         <!-- Espaciador vertical usando una clase de utilidad de Tailwind -->
@@ -966,17 +970,43 @@
         style="display: block"
       >
         <div class="sm:col-span-2 mb-8">
-          <h1 class="text-3xl font-bold text-gray-600 mb-4">Excelente!!</h1>
+          <h2 class="text-xl font-bold text-gray-600 mb-4">Bienvenido</h2>
+          <p class="text-base font-bold text-gray-600 mb-4">
+            <span class="clientName"> Juan Perez roberto juarez </span>
+          </p>
+
+          <p class="text-gray-500 text-base">
+            En esta sección, tendrás acceso a información detallada sobre el
+            acuerdo y podrás realizar un seguimiento de tus pagos.
+          </p>
         </div>
 
+        <div class="sm:hidden">
+          <select
+            id="tabs"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option selected value="1">Dashboard</option>
+            <option value="2">Información bancaria</option>
+            <option value="3">Historial de pagos</option>
+            <option value="4">Preguntas frecuentes</option>
+          </select>
+        </div>
         <ul
-          class="flex text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400"
+          class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400"
         >
           <li class="w-full">
             <button
+              id="btn_dashboard"
+              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+            >
+              Dashboard
+            </button>
+          </li>
+          <li class="w-full">
+            <button
               id="btn_payment_info"
-              class="inline-block w-full p-4 text-gray-900 bg-gray-100 rounded-l-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
-              aria-current="page"
+              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               Información bancaria
             </button>
@@ -984,7 +1014,7 @@
           <li class="w-full">
             <button
               id="btn_payment_history"
-              class="inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               Historial de pagos
             </button>
@@ -992,21 +1022,225 @@
           <li class="w-full">
             <button
               id="btn_frequent_questions"
-              class="inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+              class="h-full inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               Preguntas frecuentes
             </button>
           </li>
         </ul>
-
-        <div class="step" id="payment_info">
-          <p class="text-lg leading-8 text-gray-600">información de pago</p>
+        <div class="step" id="dashboard">
+          <div class="sm:col-span-2 mb-8">
+            <h1 class="text-2xl font-bold text-gray-600 m-4">Dashboard</h1>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+              <table
+                class="w-full text-sm text-left text-gray-500 dark:text-gray-800"
+              >
+                <tbody
+                  class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                >
+                  <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                    >
+                      Cliente
+                    </th>
+                    <td class="px-6 py-4">
+                      <span class="clientName">
+                        Juan Perez roberto juarez
+                      </span>
+                    </td>
+                  </tr>
+                  <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                    >
+                      Status
+                    </th>
+                    <td class="px-6 py-4"><span id="status">Activo</span></td>
+                  </tr>
+                  <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                    >
+                      Proximo pago
+                    </th>
+                    <td class="px-6 py-4">
+                      <span id="next_payment">01/01/2022</span>
+                    </td>
+                  </tr>
+                  <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                    >
+                      Monto restante
+                    </th>
+                    <td class="px-6 py-4">
+                      $<span id="balance">10000</span> MXN
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="step" id="payment_info" style="display: none">
+          <div class="sm:col-span-2 mb-8">
+            <h1 class="text-xl font-bold text-gray-600 m-4">
+              Información bancaria
+            </h1>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+              <table
+                class="w-full text-sm text-left text-gray-500 dark:text-gray-800"
+              >
+                <tbody
+                  class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                >
+                  <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                    >
+                      Banco a transferir
+                    </th>
+                    <td class="px-6 py-4"><span id="bank">Banorte</span></td>
+                  </tr>
+                  <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                    >
+                      Referencia de pago
+                    </th>
+                    <td class="px-6 py-4">
+                      <span id="reference_number">1234567890</span>
+                    </td>
+                  </tr>
+                  <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-200 dark:text-white dark:bg-gray-800"
+                    >
+                      Clave interbancaria
+                    </th>
+                    <td class="px-6 py-4">
+                      <span id="interbank_key">1234567890</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
         <div class="step" id="payment_history" style="display: none">
-          <p class="text-lg leading-8 text-gray-600">historial de pagos</p>
+          <div class="sm:col-span-2 mb-8">
+            <h1 class="text-xl font-bold text-gray-600 m-4">
+              Historial de pagos
+            </h1>
+            <p class="text-lg leading-8 text-gray-600"></p>
+          </div>
+
+          <div class="relative overflow-x-auto">
+            <table
+              class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+            >
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-3">Product name</th>
+                  <th scope="col" class="px-6 py-3">Color</th>
+                  <th scope="col" class="px-6 py-3">Category</th>
+                  <th scope="col" class="px-6 py-3">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Apple MacBook Pro 17"
+                  </th>
+                  <td class="px-6 py-4">Silver</td>
+                  <td class="px-6 py-4">Laptop</td>
+                  <td class="px-6 py-4">$2999</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="px-6 py-4">White</td>
+                  <td class="px-6 py-4">Laptop PC</td>
+                  <td class="px-6 py-4">$1999</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-800">
+                  <th
+                    scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Magic Mouse 2
+                  </th>
+                  <td class="px-6 py-4">Black</td>
+                  <td class="px-6 py-4">Accessories</td>
+                  <td class="px-6 py-4">$99</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="step" id="frequent_questions" style="display: none">
-          <p class="text-lg leading-8 text-gray-600">preguntas frecuentes</p>
+          <div class="sm:col-span-2 mb-8">
+            <h1 class="text-xl font-bold text-gray-600 m-4">
+              Preguntas frecuentes
+            </h1>
+            <ul class="acordeon">
+              <li>
+                <button class="boton-acordeon" id="firstFrequentQuestions">
+                  ¿Cuáles son los métodos de pago aceptados?
+                </button>
+                <div class="contenido-acordeon">
+                  <p class="text-center text-sm text-gray-600 mb-2">
+                    Aceptamos pagos a través de transferencias bancarias y
+                    cheques.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <button class="boton-acordeon" id="secondFrequentQuestions">
+                  ¿Cuáles son los plazos de pago?
+                </button>
+                <div class="contenido-acordeon">
+                  <p class="text-center text-sm text-gray-600 mb-2">
+                    Los plazos de pago varían según el tipo de acuerdo que se
+                    acordó con nosotros.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <button class="boton-acordeon" id="thirdFrequentQuestions">
+                  ¿Qué debo hacer si tengo un problema con mi pago?
+                </button>
+                <div class="contenido-acordeon">
+                  <p class="text-center text-sm text-gray-600 mb-2">
+                    Si experimentas problemas con un pago, por favor, ponte en
+                    contacto con nuestro servicio de atención al cliente de
+                    inmediato para recibir asistencia.
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -1018,7 +1252,7 @@
         <div
           class="bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-100 text-white p-16 rounded-lg shadow-lg"
         >
-          <p class="text-4xl font-semibold mb-6">¡Gracias por ser increíble!</p>
+          <p class="text-2xl font-semibold mb-6">¡Gracias por ser increíble!</p>
           <p class="text-lg mb-4">
             Tu apoyo y confianza son un pilar fundamental para nosotros.
           </p>

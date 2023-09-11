@@ -787,6 +787,10 @@ $(document).ready(function () {
     }
   }
 
+  $("#btn_dashboard").click(function () {
+    showstep("dashboard");
+  });
+
   $("#btn_payment_info").click(function () {
     showstep("payment_info");
   });
@@ -803,4 +807,37 @@ $(document).ready(function () {
     var monto = $("#pagoFinal").text();
     pdf(monto);
   });
+
+  $("#tabs").change(function () {
+    var value = $(this).val();
+
+    switch (value) {
+      case "1":
+        showstep("dashboard");
+        break;
+      case "2":
+        showstep("payment_info");
+        break;
+      case "3":
+        showstep("payment_history");
+        break;
+      case "4":
+        showstep("frequent_questions");
+        break;
+
+    }
+
+  })
+
+  $("#firstFrequentQuestions").click(function () {
+    $(this).next().toggle();
+  })
+
+  $("#secondFrequentQuestions").click(function () {
+    $(this).next().toggle();
+  })
+  $("#thirdFrequentQuestions").click(function () {
+    $(this).next().toggle();
+  })
+
 });

@@ -100,3 +100,34 @@ th {
 .error {
     color: red;
 }
+
+/* Estilos base */
+.acordeon {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.boton-acordeon {
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    background-color: #f0f4f7 !important;
+    border: 1px solid #fff !important;
+    cursor: pointer;
+    color: #20282e !important;
+    border-radius: 10px !important;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5) !important;
+    margin-top: 10px;
+
+}
+
+.contenido-acordeon {
+    display: none;
+    padding: 10px;
+    background-color: #f0f4f7 !important;
+    border: 1px solid #ccc !important;
+    border-radius: 10px !important;
+    margin-bottom: 10px;
+
+}
