@@ -1,9 +1,9 @@
 // imports
 importScripts("js/sw-utils.js");
 
-const STATIC_CACHE = "static-v2";
-const DYNAMIC_CACHE = "dynamic-v2";
-const INMUTABLE_CACHE = "inmutable-v2";
+const STATIC_CACHE = "static-v3";
+const DYNAMIC_CACHE = "dynamic-v3";
+const INMUTABLE_CACHE = "inmutable-v3";
 
 const APP_SHELL = [
   // '/',
@@ -55,38 +55,24 @@ self.addEventListener("activate", (e) => {
   e.waitUntil(respuesta);
 });
 
-self.addEventListener('fetch', e => {
-
+self.addEventListener("fetch", (e) => {
   let respuesta;
 
-  if (e.request.url.includes('/api')) {
-
+  if (e.request.url.includes("/api")) {
     // return respuesta????
     respuesta = manejoApiMensajes(DYNAMIC_CACHE, e.request);
-
   } else {
-
-    respuesta = caches.match(e.request).then(res => {
-
+    respuesta = caches.match(e.request).then((res) => {
       if (res) {
-
         actualizaCacheStatico(STATIC_CACHE, e.request, APP_SHELL_INMUTABLE);
         return res;
-
       } else {
-
-        return fetch(e.request).then(newRes => {
-
+        return fetch(e.request).then((newRes) => {
           return actualizaCacheDinamico(DYNAMIC_CACHE, e.request, newRes);
-
         });
-
       }
-
     });
-
   }
 
   e.respondWith(respuesta);
-
 });
