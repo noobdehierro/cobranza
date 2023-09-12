@@ -24,7 +24,6 @@ const APP_SHELL = [
 
 const APP_SHELL_INMUTABLE = [
   "js/libs/jquery.com_jquery-3.7.0.min.js",
-  // "https://cdn.tailwindcss.com",
 ];
 
 self.addEventListener("install", (e) => {
