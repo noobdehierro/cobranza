@@ -1,9 +1,9 @@
 // imports
 importScripts("js/sw-utils.js");
 
-const STATIC_CACHE = "static-v3";
-const DYNAMIC_CACHE = "dynamic-v3";
-const INMUTABLE_CACHE = "inmutable-v3";
+const STATIC_CACHE = "static-v4";
+const DYNAMIC_CACHE = "dynamic-v4";
+const INMUTABLE_CACHE = "inmutable-v4";
 
 const APP_SHELL = [
   // '/',
@@ -24,7 +24,6 @@ const APP_SHELL = [
 
 const APP_SHELL_INMUTABLE = [
   "js/libs/jquery.com_jquery-3.7.0.min.js",
-  // "https://cdn.tailwindcss.com",
 ];
 
 self.addEventListener("install", (e) => {
